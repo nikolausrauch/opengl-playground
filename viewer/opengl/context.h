@@ -10,8 +10,8 @@
 #include <memory>
 
 
+class viewer;
 namespace glfw  { class window; }
-namespace render { class module; }
 namespace opengl
 {
 
@@ -197,8 +197,8 @@ public:
     void draw_elements(primitives mode, GLsizei count, type data_type, GLsizei offset = 0);
     void draw_array(primitives mode, GLsizei count, GLsizei first = 0);
 
-    std::shared_ptr<shader_program> make_shader();
-    std::shared_ptr<vertexarray> make_vertexarray();
+    handle<shader_program> make_shader();
+    handle<vertexarray> make_vertexarray();
 
     template<typename... Args>
     handle<texture> make_texture(Args... args)
@@ -233,7 +233,7 @@ public:
 private:
     context(glfw::window& window);
 
-    friend class render::module;
+    friend class ::viewer;
 };
 
 

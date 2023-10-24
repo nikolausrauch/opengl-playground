@@ -445,7 +445,7 @@ context::context(glfw::window& window)
     m_renderer = reinterpret_cast<const char*>( glGetString(GL_RENDERER) );
 
     platform_log(core::log::level::info,
-               "\topengl.version = {0} \n\tglsl.version = {1} \n\tgpu.vendor = {2} \n\tgpu.renderer = {3}",
+               "opengl.version = {0} \nglsl.version = {1} \ngpu.vendor = {2} \ngpu.renderer = {3}",
                 m_version, m_shading_language, m_vendor, m_renderer);
 
     /* TODO: message callback available from 4.3 and is not supported on lower opengl versions */

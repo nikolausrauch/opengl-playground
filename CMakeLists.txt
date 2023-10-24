@@ -17,7 +17,18 @@ message(STATUS "Build system:     ${CMAKE_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCE
 #########################################
 #                Options                #
 #########################################
+option(VIEWER_DEBUG "build with debug features" OFF)
+option(VIEWER_LOG "build with logging features" ON)
 
+if(VIEWER_DEBUG)
+    set(VIEWER_DEFINES "${VIEWER_DEFINES}; PLATFORM_DEBUG")
+    message(STATUS "viewer debug mode enabled")
+endif()
+
+if(VIEWER_LOG)
+    set(VIEWER_DEFINES "${VIEWER_DEFINES}; PLATFORM_LOG")
+    message(STATUS "viewer logging enabled")
+endif()
 
 #########################################
 #              CMake-Stuff              #
@@ -77,3 +88,8 @@ add_compile_options("$<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:RELEASE>>:${MSVC_C
 #    Build OpenGL Wrapper and Viewer    #
 #########################################
 add_subdirectory(viewer)
+
+#########################################
+#            Build Examples             #
+#########################################
+add_subdirectory(apps)
