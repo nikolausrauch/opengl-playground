@@ -1,2 +1,3 @@
-# opengl-playground
-My OpenGL Coding Playground; unstructured collection of methods
+<h1 align="center">OpenGL Playground</h1>
+
+> **This project is currently under development.**
