@@ -2,6 +2,8 @@
 
 #include "viewer/asset/image.h"
 #include "viewer/core/assert.h"
+#include "viewer/core/msg_bus.h"
+#include "viewer/core/msg.h"
 #include "viewer/core/log.h"
 #include "viewer/core/platform.h"
 
@@ -16,38 +18,64 @@ namespace detail
 
 void framebuffer_size_cb(GLFWwindow* handle, int width, int height)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    bus->broadcast(msg::framebuffer_resize
+    {
+        .width = static_cast<unsigned int>(width),
+        .height = static_cast<unsigned int>(height)
+    });
 }
 
 void window_close_cb(GLFWwindow* handle)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    bus->broadcast(msg::window_closed{});
 }
 
 void window_focus_cb(GLFWwindow* handle, int state)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    bus->broadcast(msg::window_focus{ .gained = (state == GLFW_FOCUSED) });
 }
 
 void window_position_cb(GLFWwindow* handle, int x, int y)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    bus->broadcast(msg::window_position{ .x = x, .y = y });
 }
 
 void window_refresh_cb(GLFWwindow* handle)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    (void) bus;
 }
 
 void window_resize_cb(GLFWwindow* handle, int width, int height)
 {
+    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
+    platform_assert(bus, "Invalid message bus pointer");
 
+    bus->broadcast(msg::window_resize
+    {
+        .width = static_cast<unsigned int>(width),
+        .height = static_cast<unsigned int>(height)
+    });
 }
 
 
 }
 
-window::window(const std::string& title, unsigned int width, unsigned int height)
+window::window(core::msg_bus& bus, const std::string& title, unsigned int width, unsigned int height)
 {
     if constexpr (g_render_api == graphic_api::opengl)
     {
@@ -75,6 +103,8 @@ window::window(const std::string& title, unsigned int width, unsigned int height
     platform_assert(m_handle, "Couldn't create Window");
 
     glfwMakeContextCurrent(m_handle);
+
+    glfwSetWindowUserPointer(m_handle, &bus);
 
     /* callbacks */
     glfwSetWindowSizeCallback(m_handle, &detail::window_resize_cb);

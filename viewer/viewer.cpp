@@ -17,9 +17,11 @@ viewer::viewer(const window_settings& settings)
         log.add_sink(core::log::level::error, [](const auto& msg){ std::cerr << msg.file << ":" << msg.line << ":" << msg.func << " " << msg.text << std::endl; });
     }
 
+    m_msg_bus.connect<msg::window_position>(this);
+
     glfw::startup();
 
-    m_window = std::make_unique<glfw::window>(settings.title, settings.width, settings.heigth);
+    m_window = std::make_unique<glfw::window>(m_msg_bus, settings.title, settings.width, settings.heigth);
     m_window->vsync(settings.vsync);
 
     m_glcontext.reset(new opengl::context(static_cast<glfw::window&>(*m_window)));
@@ -52,6 +54,11 @@ opengl::context& viewer::context()
     return *m_glcontext;
 }
 
+core::msg_bus &viewer::msg_bus()
+{
+    return m_msg_bus;
+}
+
 void viewer::run()
 {
     while(!m_window->closed())
@@ -64,4 +71,9 @@ void viewer::run()
         }
         m_window->display();
     }
+}
+
+void viewer::receive(const msg::window_position& msg)
+{
+    platform_log(core::log::level::info, "received window position event!");
 }

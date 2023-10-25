@@ -60,7 +60,7 @@ class vertexbuffer : public buffer<data>
 {
     typedef std::remove_reference_t<decltype(layout<data>::value)> info_type;
         static_assert (std::is_array_v<info_type>,
-        "VertexBuffer doesn't have Attribute Definition (maybe you forgot to instantiate opengl::layout<data>{ static const attr_info value[] = {...} };)");
+        "vertexbuffer doesn't have attribute definition (maybe you forgot to instantiate opengl::layout<data>{ static const attr_info value[] = {...} };)");
 
 private:
     GLuint m_stride;

@@ -8,6 +8,7 @@
 
 
 struct GLFWwindow;
+namespace core { class msg_bus; }
 
 namespace glfw
 {
@@ -21,7 +22,7 @@ private:
     glm::ivec2 m_pos_backup;
 
 public:
-    window(const std::string& title, unsigned int width, unsigned int height);
+    window(core::msg_bus& bus, const std::string& title, unsigned int width, unsigned int height);
     virtual ~window();
     window(const window&) = delete;
     window& operator=(const window&) = delete;

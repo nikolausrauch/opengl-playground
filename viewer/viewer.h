@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/msg.h"
+#include "core/msg_bus.h"
 #include "glfw/window.h"
 #include "opengl/context.h"
 
@@ -16,9 +18,9 @@ public:
     };
 
 private:
+    core::msg_bus m_msg_bus;
     std::unique_ptr<glfw::window> m_window;
     std::unique_ptr<opengl::context> m_glcontext;
-
 
 public:
     viewer(const window_settings& settings);
@@ -26,6 +28,10 @@ public:
 
     glfw::window& window();
     opengl::context& context();
+    core::msg_bus& msg_bus();
 
     void run();
+
+
+    void receive(const msg::window_position& msg);
 };

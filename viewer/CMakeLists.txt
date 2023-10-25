@@ -30,6 +30,8 @@ set( CORE_SRC
 set( CORE_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/viewer.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/core/platform.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/core/msg_bus.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/core/msg.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/core/frameclock.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/core/log.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/core/assert.h"
