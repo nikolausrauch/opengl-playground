@@ -49,7 +49,7 @@ viewer::~viewer()
     m_msg_bus.disconnect<msg::window_resize>(this);
 }
 
-glfw::window& viewer::window()
+core::window& viewer::window()
 {
     return *m_window;
 }
@@ -62,6 +62,36 @@ opengl::context& viewer::context()
 core::msg_bus &viewer::msg_bus()
 {
     return m_msg_bus;
+}
+
+void viewer::on_key(const key_cb& func)
+{
+    m_key_cb = func;
+}
+
+void viewer::on_mouse_button(const mouse_cb& func)
+{
+    m_mouse_cb = func;
+}
+
+void viewer::on_resize(const resize_cb& func)
+{
+    m_resize_cb = func;
+}
+
+void viewer::on_render(const render_cb& func)
+{
+    m_render_cb = func;
+}
+
+void viewer::on_update(const update_cb& func)
+{
+    m_update_cb = func;
+}
+
+void viewer::on_gui(const gui_cb& func)
+{
+    m_gui_cb = func;
 }
 
 void viewer::run()
