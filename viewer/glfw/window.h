@@ -13,10 +13,17 @@ namespace core { class msg_bus; }
 namespace glfw
 {
 
+class mouse;
+class keyboard;
+
+
 class window final : public core::window
 {
 private:
     GLFWwindow* m_handle;
+    core::msg_bus& m_msg_bus;
+    std::unique_ptr<glfw::mouse> m_mouse;
+    std::unique_ptr<glfw::keyboard> m_keyboard;
 
     glm::ivec2 m_size_backup;
     glm::ivec2 m_pos_backup;
@@ -28,6 +35,12 @@ public:
     window& operator=(const window&) = delete;
 
     GLFWwindow* handle() const;
+    core::msg_bus& bus();
+
+    class core::mouse& mouse() override;
+    const class core::mouse& mouse() const override;
+    class core::keyboard& keyboard() override;
+    const class core::keyboard& keyboard() const override;
 
     void title(const std::string& title);
     void position(const glm::ivec2& point);

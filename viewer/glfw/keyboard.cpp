@@ -1,6 +1,9 @@
 #include "keyboard.h"
 
+#include "viewer/core/msg.h"
+#include "viewer/core/msg_bus.h"
 #include "viewer/core/assert.h"
+#include "viewer/glfw/window.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -141,11 +144,26 @@ static constexpr auto g_glfw_keymap = [](){
 void key_cb(GLFWwindow* handle, int key, int scannCode, int action, int mod)
 {
     (void) scannCode;
+
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
+
+    auto& keyboard = static_cast<glfw::keyboard&>(window->keyboard());
+    keyboard.glfw_key(key, scannCode, action, mod);
+    window->bus().broadcast(msg::key
+    {
+        .key = detail::g_glfw_keymap[key],
+        .scann_code = scannCode,
+        .pressed = (action != GLFW_RELEASE)
+    });
 }
 
 void char_cb(GLFWwindow* handle, unsigned int character)
 {
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
+    window->bus().broadcast(msg::key_char{ .code = character });
 }
 
 }

@@ -1,6 +1,9 @@
 #include "mouse.h"
 
+#include "viewer/core/msg.h"
+#include "viewer/core/msg_bus.h"
 #include "viewer/core/assert.h"
+#include "viewer/glfw/window.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -29,17 +32,44 @@ static constexpr auto g_glfw_buttonmap = [](){
 
 void mouse_button_cb(GLFWwindow* handle, int button, int action, int mods)
 {
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
+    glm::dvec2 position;
+    glfwGetCursorPos(handle, &position.x, &position.y);
+
+    window->bus().broadcast(msg::mouse_button
+    {
+        .button = g_glfw_buttonmap[button],
+        .position = position,
+        .pressed = (action != GLFW_RELEASE)
+    });
 }
 
 void mouse_scroll_cb(GLFWwindow* handle, double xoffset, double yoffset)
 {
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
+    glm::dvec2 position;
+    glfwGetCursorPos(handle, &position.x, &position.y);
+
+    window->bus().broadcast(msg::mouse_scroll
+    {
+        .yoffset = static_cast<float>(yoffset),
+        .position = position
+    });
 }
 
 void mouse_position_cb(GLFWwindow* handle, double x, double y)
 {
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
+    window->bus().broadcast(msg::mouse_position
+    {
+        .position = {x, y}
+    });
 }
 
 }

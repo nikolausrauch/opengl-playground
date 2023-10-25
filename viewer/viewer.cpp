@@ -17,7 +17,9 @@ viewer::viewer(const window_settings& settings)
         log.add_sink(core::log::level::error, [](const auto& msg){ std::cerr << msg.file << ":" << msg.line << ":" << msg.func << " " << msg.text << std::endl; });
     }
 
-    m_msg_bus.connect<msg::window_position>(this);
+    /*----- event listener ----*/
+    m_msg_bus.connect<msg::window_resize>(this);
+
 
     glfw::startup();
 
@@ -42,6 +44,9 @@ viewer::~viewer()
         auto& log = core::log::instance();
         log.clear();
     }
+
+    /*----- event listener ----*/
+    m_msg_bus.disconnect<msg::window_resize>(this);
 }
 
 glfw::window& viewer::window()
@@ -73,7 +78,7 @@ void viewer::run()
     }
 }
 
-void viewer::receive(const msg::window_position& msg)
+void viewer::receive(const msg::window_resize& msg)
 {
-    platform_log(core::log::level::info, "received window position event!");
+
 }

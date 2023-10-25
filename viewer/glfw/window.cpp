@@ -7,6 +7,9 @@
 #include "viewer/core/log.h"
 #include "viewer/core/platform.h"
 
+#include "keyboard.h"
+#include "mouse.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -18,10 +21,10 @@ namespace detail
 
 void framebuffer_size_cb(GLFWwindow* handle, int width, int height)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    bus->broadcast(msg::framebuffer_resize
+    window->bus().broadcast(msg::framebuffer_resize
     {
         .width = static_cast<unsigned int>(width),
         .height = static_cast<unsigned int>(height)
@@ -30,42 +33,42 @@ void framebuffer_size_cb(GLFWwindow* handle, int width, int height)
 
 void window_close_cb(GLFWwindow* handle)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    bus->broadcast(msg::window_closed{});
+    window->bus().broadcast(msg::window_closed{});
 }
 
 void window_focus_cb(GLFWwindow* handle, int state)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    bus->broadcast(msg::window_focus{ .gained = (state == GLFW_FOCUSED) });
+    window->bus().broadcast(msg::window_focus{ .gained = (state == GLFW_FOCUSED) });
 }
 
 void window_position_cb(GLFWwindow* handle, int x, int y)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    bus->broadcast(msg::window_position{ .x = x, .y = y });
+    window->bus().broadcast(msg::window_position{ .position = {x, y} });
 }
 
 void window_refresh_cb(GLFWwindow* handle)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    (void) bus;
+    (void) window;
 }
 
 void window_resize_cb(GLFWwindow* handle, int width, int height)
 {
-    auto bus = static_cast<core::msg_bus*>(glfwGetWindowUserPointer(handle));
-    platform_assert(bus, "Invalid message bus pointer");
+    auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
+    platform_assert(window, "Invalid window pointer");
 
-    bus->broadcast(msg::window_resize
+    window->bus().broadcast(msg::window_resize
     {
         .width = static_cast<unsigned int>(width),
         .height = static_cast<unsigned int>(height)
@@ -76,6 +79,7 @@ void window_resize_cb(GLFWwindow* handle, int width, int height)
 }
 
 window::window(core::msg_bus& bus, const std::string& title, unsigned int width, unsigned int height)
+    : m_msg_bus(bus)
 {
     if constexpr (g_render_api == graphic_api::opengl)
     {
@@ -104,7 +108,11 @@ window::window(core::msg_bus& bus, const std::string& title, unsigned int width,
 
     glfwMakeContextCurrent(m_handle);
 
-    glfwSetWindowUserPointer(m_handle, &bus);
+    glfwSetWindowUserPointer(m_handle, this);
+
+    /* create input devices */
+    m_mouse = std::make_unique<glfw::mouse>(m_handle);
+    m_keyboard = std::make_unique<glfw::keyboard>(m_handle);
 
     /* callbacks */
     glfwSetWindowSizeCallback(m_handle, &detail::window_resize_cb);
@@ -126,6 +134,31 @@ window::~window()
 GLFWwindow* window::handle() const
 {
     return m_handle;
+}
+
+core::msg_bus& window::bus()
+{
+    return m_msg_bus;
+}
+
+core::mouse& window::mouse()
+{
+    return *m_mouse;
+}
+
+const core::mouse& window::mouse() const
+{
+    return *m_mouse;
+}
+
+core::keyboard& window::keyboard()
+{
+    return *m_keyboard;
+}
+
+const core::keyboard& window::keyboard() const
+{
+    return *m_keyboard;
 }
 
 void window::close()

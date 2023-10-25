@@ -32,6 +32,6 @@ public:
 
     void run();
 
-
-    void receive(const msg::window_position& msg);
+    /* event callbacks */
+    void receive(const msg::window_resize& msg);
 };

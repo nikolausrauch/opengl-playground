@@ -7,6 +7,9 @@
 namespace core
 {
 
+class mouse;
+class keyboard;
+
 class window
 {
 public:
@@ -14,6 +17,11 @@ public:
     virtual ~window() = default;
     window(const window&) = delete;
     window& operator=(const window&) = delete;
+
+    virtual class mouse& mouse() = 0;
+    virtual const class mouse& mouse() const = 0;
+    virtual class keyboard& keyboard() = 0;
+    virtual const class keyboard& keyboard() const = 0;
 
     virtual glm::uvec2 size() const = 0;
     virtual glm::uvec2 framebuffer_size() const = 0;
