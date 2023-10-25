@@ -56,4 +56,6 @@ public:
 
     /* event callbacks */
     void receive(const msg::window_resize& msg);
+    void receive(const msg::mouse_button& msg);
+    void receive(const msg::key& msg);
 };

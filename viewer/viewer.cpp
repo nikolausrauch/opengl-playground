@@ -19,6 +19,8 @@ viewer::viewer(const window_settings& settings)
 
     /*----- event listener ----*/
     m_msg_bus.connect<msg::window_resize>(this);
+    m_msg_bus.connect<msg::key>(this);
+    m_msg_bus.connect<msg::mouse_button>(this);
 
 
     glfw::startup();
@@ -47,6 +49,8 @@ viewer::~viewer()
 
     /*----- event listener ----*/
     m_msg_bus.disconnect<msg::window_resize>(this);
+    m_msg_bus.disconnect<msg::key>(this);
+    m_msg_bus.disconnect<msg::mouse_button>(this);
 }
 
 core::window& viewer::window()
@@ -100,9 +104,11 @@ void viewer::run()
     {
         glfw::poll_events();
 
+        if(m_update_cb) { m_update_cb(*m_window, 1.0f/60.0f); }
+
         m_glcontext->clear(opengl::clear_options::all);
         {
-
+            if(m_render_cb) { m_render_cb(*m_window, 1.0f/60.0f); }
         }
         m_window->display();
     }
@@ -110,5 +116,17 @@ void viewer::run()
 
 void viewer::receive(const msg::window_resize& msg)
 {
+    m_glcontext->viewport(0, 0, msg.width, msg.height);
 
+    if(m_resize_cb) { m_resize_cb(*m_window, msg.width, msg.height); }
+}
+
+void viewer::receive(const msg::mouse_button& msg)
+{
+    if(m_mouse_cb) { m_mouse_cb(*m_window, msg.button, msg.position, msg.pressed); }
+}
+
+void viewer::receive(const msg::key& msg)
+{
+    if(m_key_cb) { m_key_cb(*m_window, msg.key, msg.pressed); }
 }
