@@ -41,7 +41,7 @@ private:
         template<typename Listener>
         void disconnect(Listener* sink)
         {
-            auto it = std::find(m_listener.begin(), m_listener.end(), [sink](const auto& record){ return record.raw_ptr == sink; });
+            auto it = std::find_if(m_listener.begin(), m_listener.end(), [sink](const auto& record){ return record.raw_ptr == static_cast<void*>(sink); });
             platform_assert(it != m_listener.end(), "Tried to remove non-existing event listener!");
 
             if(it != m_listener.end())
