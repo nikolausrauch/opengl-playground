@@ -32,6 +32,8 @@ viewer::viewer(const window_settings& settings)
     m_glcontext->clear_color(0, 0, 0, 1);
     m_glcontext->clear(opengl::clear_options::all);
     m_window->display();
+
+    m_camera.perspective(settings.width, settings.heigth, 0.25f*glm::pi<float>(), 0.01f, 20.0f);
 }
 
 viewer::~viewer()
@@ -66,6 +68,11 @@ opengl::context& viewer::context()
 core::msg_bus &viewer::msg_bus()
 {
     return m_msg_bus;
+}
+
+util::camera& viewer::camera()
+{
+    return m_camera;
 }
 
 void viewer::on_key(const key_cb& func)
@@ -117,6 +124,7 @@ void viewer::run()
 void viewer::receive(const msg::window_resize& msg)
 {
     m_glcontext->viewport(0, 0, msg.width, msg.height);
+    m_camera.size(msg.width, msg.height);
 
     if(m_resize_cb) { m_resize_cb(*m_window, msg.width, msg.height); }
 }

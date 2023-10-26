@@ -3,6 +3,7 @@
 #include "core/msg.h"
 #include "core/msg_bus.h"
 #include "core/window.h"
+#include "utility/camera.h"
 #include "opengl/context.h"
 
 class viewer
@@ -26,6 +27,7 @@ public:
 
 private:
     core::msg_bus m_msg_bus;
+    util::camera m_camera;
     std::unique_ptr<glfw::window> m_window;
     std::unique_ptr<opengl::context> m_glcontext;
 
@@ -43,6 +45,7 @@ public:
     core::window& window();
     opengl::context& context();
     core::msg_bus& msg_bus();
+    util::camera& camera();
 
     /* install callbacks */
     void on_key(const key_cb& func);

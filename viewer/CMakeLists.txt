@@ -52,6 +52,14 @@ set( ASSET_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/texture.h"
  )
 
+set( UTILITY_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera.cpp"
+ )
+
+set( UTILITY_HDR
+    "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera.h"
+ )
+
 #################################
 #   Platform Specific Source    #
 #################################
@@ -95,8 +103,8 @@ set( PLATFORM_OPENGL_HDR
 #################################
 #         Source Group          #
 #################################
-set( VIEWER_SRC ${CORE_SRC} ${PLATFORM_OPENGL_SRC} ${PLATFORM_GLFW_SRC} ${ASSET_SRC} )
-set( VIEWER_HDR ${CORE_HDR} ${PLATFORM_OPENGL_HDR} ${PLATFORM_GLFW_HDR} ${ASSET_HDR} )
+set( VIEWER_SRC ${CORE_SRC} ${PLATFORM_OPENGL_SRC} ${PLATFORM_GLFW_SRC} ${ASSET_SRC} ${UTILITY_SRC} )
+set( VIEWER_HDR ${CORE_HDR} ${PLATFORM_OPENGL_HDR} ${PLATFORM_GLFW_HDR} ${ASSET_HDR} ${UTILITY_HDR} )
 source_group( TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${VIEWER_SRC} ${VIEWER_HDR})
 
 
