@@ -33,6 +33,8 @@ viewer::viewer(const window_settings& settings)
     m_glcontext->clear(opengl::clear_options::all);
     m_window->display();
 
+    m_imgui = std::make_unique<imgui::manager>(m_msg_bus, *m_window, *m_glcontext);
+
     m_camera.perspective(settings.width, settings.heigth, 0.25f*glm::pi<float>(), 0.01f, 20.0f);
 }
 
@@ -111,11 +113,19 @@ void viewer::run()
     {
         glfw::poll_events();
 
-        if(m_update_cb) { m_update_cb(*m_window, 1.0f/60.0f); }
+        double dt = 1.0 / 60.0;
+
+        if(m_update_cb) { m_update_cb(*m_window, dt); }
 
         m_glcontext->clear(opengl::clear_options::all);
         {
-            if(m_render_cb) { m_render_cb(*m_window, 1.0f/60.0f); }
+            if(m_render_cb) { m_render_cb(*m_window, dt); }
+
+            m_imgui->new_frame(dt);
+            {
+                if(m_gui_cb) { m_gui_cb(*m_window, dt); }
+            }
+            m_imgui->end_frame();
         }
         m_window->display();
     }

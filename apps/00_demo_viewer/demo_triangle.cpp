@@ -74,18 +74,18 @@ int main(int argc, char** argv)
                  { { 0.5, -0.5, 0.5}, {0.0, 1.0, 0.0, 1.0} },
                  { { 0.0,  0.5, 0.5}, {0.0, 0.0, 1.0, 1.0} } });
     vao->attach(vertexbuffer);
-    vao->bind();
 
     /* create shader and compile */
     auto shader = context.make_shader();
     shader->attach(vertex_shader, opengl::shader_type::vertex);
     shader->attach(frag_shader, opengl::shader_type::fragment);
     shader->link();
-    shader->bind();
 
     view.on_render([&](auto& window, double dt)
     {
         /* submit drawcall (count is number of primitives) */
+        shader->bind();
+        vao->bind();
         context.draw_array(opengl::primitives::triangles, 1);
     });
 

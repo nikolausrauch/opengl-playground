@@ -89,8 +89,8 @@ int main(int argc, char** argv)
 
     auto indexbuffer = context.make_indexbuffer<unsigned int>(
                 std::initializer_list<unsigned int>
-                {0, 1, 2,
-                 2, 3, 0,
+                {0, 2, 1,
+                 2, 0, 3,
 
                  4, 5, 6,
                  6, 7, 4,
@@ -98,11 +98,11 @@ int main(int argc, char** argv)
                  0, 1, 5,
                  5, 4, 0,
 
-                 3, 2, 6,
-                 6, 7, 3,
+                 3, 6, 2,
+                 6, 3, 7,
 
-                 1, 5, 6,
-                 6, 2, 1,
+                 1, 6, 5,
+                 6, 1, 2,
 
                  0, 4, 7,
                  7, 3, 0});
@@ -115,7 +115,6 @@ int main(int argc, char** argv)
     shader->attach(vertex_shader, opengl::shader_type::vertex);
     shader->attach(frag_shader, opengl::shader_type::fragment);
     shader->link();
-    shader->bind();
 
     /* enable/disable OpenGL options */
     context.set(opengl::options::depth_test, true);
@@ -126,11 +125,13 @@ int main(int argc, char** argv)
         s_time += dt;
 
         /* set shader uniforms */
+        shader->bind();
         shader->uniform("uModel", glm::rotate(s_time*glm::pi<float>(), glm::vec3{0.0f, 1.0f, 0.0f}));
         shader->uniform("uView", cam.view());
         shader->uniform("uProj", cam.projection());
 
         /* draw elements (count is number of primitives) */
+        vao->bind();
         context.draw_elements(opengl::primitives::triangles, indexbuffer->size() / 3, opengl::type::unsigned_int_);
     });
 

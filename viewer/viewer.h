@@ -3,8 +3,9 @@
 #include "core/msg.h"
 #include "core/msg_bus.h"
 #include "core/window.h"
-#include "utility/camera.h"
+#include "imgui/manager.h"
 #include "opengl/context.h"
+#include "utility/camera.h"
 
 class viewer
 {
@@ -30,7 +31,7 @@ private:
     util::camera m_camera;
     std::unique_ptr<glfw::window> m_window;
     std::unique_ptr<opengl::context> m_glcontext;
-
+    std::unique_ptr<imgui::manager> m_imgui;
     key_cb m_key_cb;
     mouse_cb m_mouse_cb;
     resize_cb m_resize_cb;

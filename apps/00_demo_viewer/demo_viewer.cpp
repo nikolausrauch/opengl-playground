@@ -25,6 +25,13 @@ int main(int argc, char** argv)
         /* called once per frame (framebuffer is already cleared) */
     });
 
+    view.on_gui([](auto& window, float dt)
+    {
+        /* submit imgui / implot calls from here (new frame, end frame called in viewer) */
+        ImGui::ShowDemoWindow();
+        ImPlot::ShowDemoWindow();
+    });
+
     view.on_mouse_button([](auto& window, auto button, auto pos, bool pressed)
     {
         /* called on mouse button events */
