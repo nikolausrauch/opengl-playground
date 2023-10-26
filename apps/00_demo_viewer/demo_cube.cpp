@@ -130,9 +130,8 @@ int main(int argc, char** argv)
         shader->uniform("uView", cam.view());
         shader->uniform("uProj", cam.projection());
 
-        /* draw elements (count is number of primitives) */
-        vao->bind();
-        context.draw_elements(opengl::primitives::triangles, indexbuffer->size() / 3, opengl::type::unsigned_int_);
+        /* draw elements */
+        vao->draw(opengl::primitives::triangles);
     });
 
     view.on_key([](auto& window, auto key, bool pressed)

@@ -8,7 +8,7 @@ int main(int argc, char** argv)
     /* initial window settings */
     viewer::window_settings settings;
     settings.title = "Colored Cube";
-    settings.width = 720;
+    settings.width = 1280;
     settings.heigth = 720;
 
     /* construct viewer (creates window and context) */

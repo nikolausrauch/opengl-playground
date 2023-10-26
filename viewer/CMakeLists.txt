@@ -54,10 +54,12 @@ set( ASSET_HDR
 
 set( UTILITY_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera_control.cpp"
  )
 
 set( UTILITY_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/utility/camera_control.h"
  )
 
 set( GUI_SRC

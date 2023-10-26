@@ -11,7 +11,6 @@ namespace opengl { class context; }
 namespace asset
 {
 
-class module;
 using color = glm::u8vec4;
 
 class texture
@@ -28,8 +27,6 @@ public:
 
     virtual void data(const unsigned char* pixels, unsigned int width, unsigned int height) = 0;
     virtual void data(const unsigned char* pixels) = 0;
-
-    friend module;
 };
 
 

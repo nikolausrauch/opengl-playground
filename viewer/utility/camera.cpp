@@ -62,6 +62,16 @@ void camera::size(float width, float height)
     m_height = height;
 }
 
+float camera::width() const
+{
+    return m_width;
+}
+
+float camera::height() const
+{
+    return m_height;
+}
+
 float camera::aspect() const
 {
     return static_cast<float>(m_width) / m_height;

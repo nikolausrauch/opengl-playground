@@ -7,6 +7,7 @@
 #include "imgui/manager.h"
 #include "opengl/context.h"
 #include "utility/camera.h"
+#include "utility/camera_control.h"
 
 class viewer
 {
@@ -29,8 +30,10 @@ public:
 
 private:
     core::msg_bus m_msg_bus;
+
     core::frameclock m_frameclock;
     util::camera m_camera;
+    std::unique_ptr<util::camera_control> m_controls;
 
     std::unique_ptr<glfw::window> m_window;
     std::unique_ptr<opengl::context> m_glcontext;
@@ -62,6 +65,12 @@ public:
     void on_gui(const gui_cb& func);
 
     void run();
+
+    template<typename T> void camera_control()
+    {
+        static_assert(std::is_base_of_v<util::camera_control, T>, "is not a camera_control subclass");
+        m_controls.reset(new T(m_camera, msg_bus(), window()));
+    }
 
     /* event callbacks */
     void receive(const msg::window_resize& msg);

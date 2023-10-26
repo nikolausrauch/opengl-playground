@@ -37,6 +37,7 @@ viewer::viewer(const window_settings& settings)
     m_imgui = std::make_unique<imgui::manager>(m_msg_bus, *m_window, *m_glcontext);
 
     m_camera.perspective(settings.width, settings.heigth, 0.25f*glm::pi<float>(), 0.01f, 20.0f);
+    camera_control<util::orbit_control>();
 }
 
 viewer::~viewer()
@@ -46,16 +47,17 @@ viewer::~viewer()
 
     glfw::shutdown();
 
+    /*----- event listener ----*/
+    m_msg_bus.disconnect<msg::window_resize>(this);
+    m_msg_bus.disconnect<msg::key>(this);
+    m_msg_bus.disconnect<msg::mouse_button>(this);
+
+
     if constexpr (core::g_logging)
     {
         auto& log = core::log::instance();
         log.clear();
     }
-
-    /*----- event listener ----*/
-    m_msg_bus.disconnect<msg::window_resize>(this);
-    m_msg_bus.disconnect<msg::key>(this);
-    m_msg_bus.disconnect<msg::mouse_button>(this);
 }
 
 core::window& viewer::window()

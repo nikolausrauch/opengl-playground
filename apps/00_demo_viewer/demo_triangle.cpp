@@ -83,10 +83,10 @@ int main(int argc, char** argv)
 
     view.on_render([&](auto& window, double dt)
     {
-        /* submit drawcall (count is number of primitives) */
         shader->bind();
-        vao->bind();
-        context.draw_array(opengl::primitives::triangles, 1);
+
+        /* draw vertexbuffer content */
+        vao->draw(opengl::primitives::triangles);
     });
 
     view.on_key([](auto& window, auto key, bool pressed)

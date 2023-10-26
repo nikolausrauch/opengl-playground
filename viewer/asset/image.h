@@ -10,7 +10,6 @@
 namespace asset
 {
 
-class module;
 using color = glm::u8vec4;
 
 class image
@@ -32,8 +31,6 @@ public:
 
     const color& operator()(int x, int y) const;
     color& operator()(int x, int y);
-
-    friend module;
 };
 
 class image_loader

@@ -27,7 +27,7 @@ private:
     float m_width{1280.0f};
     float m_height{720.0f};
     float m_near_plane{0.01f};
-    float m_far_plane{15.0f};
+    float m_far_plane{20.0f};
     float m_fov{0.25f*glm::pi<float>()};
 
 
@@ -48,6 +48,8 @@ public:
     float fov() const;
 
     void size(float width, float height);
+    float width() const;
+    float height() const;
     float aspect() const;
 
     void clip_planes(float near, float far);
