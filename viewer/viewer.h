@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core/frameclock.h"
 #include "core/msg.h"
 #include "core/msg_bus.h"
 #include "core/window.h"
@@ -28,10 +29,13 @@ public:
 
 private:
     core::msg_bus m_msg_bus;
+    core::frameclock m_frameclock;
     util::camera m_camera;
+
     std::unique_ptr<glfw::window> m_window;
     std::unique_ptr<opengl::context> m_glcontext;
     std::unique_ptr<imgui::manager> m_imgui;
+
     key_cb m_key_cb;
     mouse_cb m_mouse_cb;
     resize_cb m_resize_cb;
@@ -47,6 +51,7 @@ public:
     opengl::context& context();
     core::msg_bus& msg_bus();
     util::camera& camera();
+    const core::frameclock& frameclock() const;
 
     /* install callbacks */
     void on_key(const key_cb& func);

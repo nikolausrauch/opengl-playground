@@ -8,6 +8,7 @@
 #include <iostream>
 
 viewer::viewer(const window_settings& settings)
+    : m_frameclock(1024)
 {
     if constexpr (core::g_logging)
     {
@@ -77,6 +78,11 @@ util::camera& viewer::camera()
     return m_camera;
 }
 
+const core::frameclock& viewer::frameclock() const
+{
+    return m_frameclock;
+}
+
 void viewer::on_key(const key_cb& func)
 {
     m_key_cb = func;
@@ -109,11 +115,13 @@ void viewer::on_gui(const gui_cb& func)
 
 void viewer::run()
 {
+    m_frameclock.start();
+
     while(!m_window->closed())
     {
         glfw::poll_events();
 
-        double dt = 1.0 / 60.0;
+        auto dt = core::time_cast<core::sec>(m_frameclock.restart());
 
         if(m_update_cb) { m_update_cb(*m_window, dt); }
 
