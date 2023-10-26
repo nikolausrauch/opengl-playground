@@ -35,13 +35,13 @@ void mouse_button_cb(GLFWwindow* handle, int button, int action, int mods)
     auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
     platform_assert(window, "Invalid window pointer");
 
-    glm::dvec2 position;
-    glfwGetCursorPos(handle, &position.x, &position.y);
+    auto& mouse = static_cast<glfw::mouse&>(window->mouse());
+    mouse.glfw_button(button, action, mods);
 
     window->bus().broadcast(msg::mouse_button
     {
         .button = g_glfw_buttonmap[button],
-        .position = position,
+        .position = mouse.position(),
         .pressed = (action != GLFW_RELEASE)
     });
 }
@@ -51,13 +51,12 @@ void mouse_scroll_cb(GLFWwindow* handle, double xoffset, double yoffset)
     auto* window = static_cast<glfw::window*>(glfwGetWindowUserPointer(handle));
     platform_assert(window, "Invalid window pointer");
 
-    glm::dvec2 position;
-    glfwGetCursorPos(handle, &position.x, &position.y);
+    auto& mouse = static_cast<glfw::mouse&>(window->mouse());
 
     window->bus().broadcast(msg::mouse_scroll
     {
         .yoffset = static_cast<float>(yoffset),
-        .position = position
+        .position = mouse.position()
     });
 }
 

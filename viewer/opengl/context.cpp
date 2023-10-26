@@ -194,8 +194,8 @@ const std::string &context::renderer() const
 
 bool context::set(options option, bool enable)
 {
-    auto& current = m_options[option];
-    detail::set(option, enable, current);
+    auto current = m_options[option];
+    detail::set(option, enable, m_options[option]);
     return current;
 }
 
