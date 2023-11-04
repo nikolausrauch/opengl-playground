@@ -37,7 +37,7 @@ class image_loader
 {
 public:
     using result_type = std::shared_ptr<image>;
-    result_type operator()(const std::filesystem::path& path);
+    static result_type load(const std::filesystem::path& path);
 };
 
 }

@@ -26,7 +26,7 @@ texture::texture(context &gl_context, texture_internal_type internal, texture_fo
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
 }
 
-void texture::create(unsigned int width, unsigned int height, const asset::color &color)
+void texture::create(unsigned int width, unsigned int height, const glm::u8vec4& color)
 {
     resize(width, height);
     generate_mip_maps();

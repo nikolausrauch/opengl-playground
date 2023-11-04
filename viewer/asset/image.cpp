@@ -59,7 +59,7 @@ color& image::operator()(int x, int y)
     return m_pixels[y*m_size.x + x];
 }
 
-image_loader::result_type image_loader::operator()(const std::filesystem::path &path)
+image_loader::result_type image_loader::load(const std::filesystem::path &path)
 {
     int width = 1;
     int height = 1;

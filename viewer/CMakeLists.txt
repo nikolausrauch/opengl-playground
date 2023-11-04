@@ -50,6 +50,10 @@ set( ASSET_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/fwd.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/image.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/texture.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/asset/model.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/asset/obj_model.h"
+
+    "${CMAKE_CURRENT_SOURCE_DIR}/asset/detail/obj_model.h"
  )
 
 set( UTILITY_SRC
@@ -123,7 +127,7 @@ source_group( TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${VIEWER_SRC} ${VIEWER_HDR}
 #################################
 add_library( viewer STATIC ${VIEWER_SRC} ${VIEWER_HDR} )
 
-target_link_libraries( viewer Threads::Threads OpenGL::GL glfw glm_static glad_static imgui_static stb_image fmt )
+target_link_libraries( viewer Threads::Threads OpenGL::GL glfw glm_static glad_static imgui_static stb_image fmt tiny_obj )
 target_include_directories( viewer PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
     )

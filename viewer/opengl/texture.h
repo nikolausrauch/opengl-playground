@@ -1,15 +1,14 @@
 #pragma once
 
 #include "context.h"
-#include "viewer/asset/texture.h"
-
 
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
+namespace asset { class texture_loader; }
+
 namespace opengl
 {
-
 
 enum class texture_internal_type : GLenum
 {
@@ -109,7 +108,7 @@ enum class pixel_format : GLenum
 };
 
 
-class texture final : public asset::texture
+class texture final
 {
 private:
     context& m_context;
@@ -125,15 +124,15 @@ public:
     texture(const texture &) = delete;
     texture &operator=(const texture &) = delete;
 
-    void create(unsigned int width = 1, unsigned int height = 1, const asset::color& color = {0, 0, 0, 255}) override;
-    void resize(unsigned int width, unsigned int height) override;
-    const glm::uvec2& size() override;
+    void create(unsigned int width = 1, unsigned int height = 1, const glm::u8vec4& color = {0, 0, 0, 255});
+    void resize(unsigned int width, unsigned int height);
+    const glm::uvec2& size();
 
-    void repeat(bool value = true) override;
-    void smooth(bool value = true) override;
+    void repeat(bool value = true);
+    void smooth(bool value = true);
 
-    void data(const unsigned char* pixels, unsigned int width, unsigned int height) override;
-    void data(const unsigned char* pixels) override;
+    void data(const unsigned char* pixels, unsigned int width, unsigned int height);
+    void data(const unsigned char* pixels);
 
     void parameter(min_filter filter);
     void parameter(mag_filter filter);
