@@ -13,20 +13,6 @@ settings.heigth = 720;
 
 /* construct viewer (creates window and context) */
 viewer view(settings);
-
-/* set camera parameter */
-auto& cam = view.camera();
-cam.position({2.0f, 2.0f, 2.0f});
-cam.look_at({0.0f, 0.0f, 0.0f});
-
-view.on_key([](auto& window, auto key, bool pressed)
-{
-    /* called on key event */
-    if(key == core::keyboard::key::escape && pressed)
-    {
-        window.close();
-    }
-});
 ```
 The OpenGL context is created on [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) construction and is destroyed on destruction - OpenGL calls are only allowed in between.
 For ease of use I wrapped some of the most commonly used OpenGL functionalities (not feature complete), which is accessed through an [opengl::context](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/context.h) instance.
@@ -112,6 +98,10 @@ In the render callback of the [viewer](https://github.com/nikolausrauch/opengl-p
 <img src="https://github.com/nikolausrauch/opengl-playground/assets/13553309/a31e5df8-a1eb-44c6-a609-965f72ad9ca6" align="right" height=374px>
 
 ```C++
+/* access viewer camera */
+auto& cam = view.camera();
+
+/* set render callback*/
 view.on_render([&](auto& window, float dt)
 {
     static float s_time = 0.0f;
