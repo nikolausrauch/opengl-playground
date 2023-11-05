@@ -76,6 +76,7 @@ public:
 
     void draw(primitives mode) const;
     void draw(size_t count, primitives mode) const;
+    void draw(size_t offset, size_t count, primitives mode) const;
 
 private:
     vertexarray(context& context);

@@ -51,6 +51,22 @@ void vertexarray::draw(size_t count, primitives mode_) const
     }
 }
 
+void vertexarray::draw(size_t offset, size_t count, primitives mode_) const
+{
+    bind();
+
+    GLenum mode = static_cast<GLenum>(mode_);
+
+    if(m_indexbuffer_size == 0)
+    {
+        glDrawArrays(mode, offset, count);
+    }
+    else
+    {
+        glDrawElements(mode, count, m_indexbuffer_type, (void*) offset);
+    }
+}
+
 vertexarray::vertexarray(context &context)
     : m_context(context)
 {

@@ -115,7 +115,7 @@ int main(int argc, char** argv)
             for(const auto& record : mat_group.records())
             {
                 record.m_mesh.get().vao()->bind();
-                record.m_mesh.get().vao()->draw(opengl::primitives::triangles);
+                record.m_mesh.get().vao()->draw(record.m_offset, record.m_count, opengl::primitives::triangles);
             }
         }
     });
