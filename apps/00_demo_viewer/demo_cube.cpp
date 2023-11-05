@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <iostream>
 
 #include <viewer/viewer.h>
 
@@ -12,30 +11,30 @@
 
 /*============= Shader Code =============*/
 const char *vertex_shader = GLSL_CODE(330,
-layout(location = 0) in vec3 aPosition;
-layout(location = 1) in vec4 aColor;
+    layout(location = 0) in vec3 aPosition;
+    layout(location = 1) in vec4 aColor;
 
-uniform mat4 uModel;
-uniform mat4 uView;
-uniform mat4 uProj;
+    uniform mat4 uModel;
+    uniform mat4 uView;
+    uniform mat4 uProj;
 
-out vec4 tColor;
+    out vec4 tColor;
 
-void main(void)
-{
-    gl_Position = uProj * uView * uModel * vec4(aPosition, 1.0);
-    tColor = aColor;
-});
+    void main(void)
+    {
+        gl_Position = uProj * uView * uModel * vec4(aPosition, 1.0);
+        tColor = aColor;
+    });
 
 const char *frag_shader = GLSL_CODE(330,
-in vec4 tColor;
+    in vec4 tColor;
 
-out vec4 fragColor;
+    out vec4 fragColor;
 
-void main(void)
-{
-    fragColor = tColor;
-});
+    void main(void)
+    {
+        fragColor = tColor;
+    });
 
 /*============= Vertex Defition =============*/
 struct vertex

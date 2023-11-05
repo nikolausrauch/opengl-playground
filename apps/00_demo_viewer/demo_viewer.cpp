@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <iostream>
 
 #include <viewer/viewer.h>
 
@@ -7,7 +6,7 @@ int main(int argc, char** argv)
 {
     /* initial window settings */
     viewer::window_settings settings;
-    settings.title = "Colored Cube";
+    settings.title = "Minimal Viewer Example";
     settings.width = 1280;
     settings.heigth = 720;
 

@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <iostream>
 
 #include <viewer/viewer.h>
 #include <viewer/asset/model.h>
@@ -11,37 +10,37 @@
 
 /*============= Shader Code =============*/
 const char *vertex_shader = GLSL_CODE(330,
-layout(location = 0) in vec3 aPosition;
-layout(location = 1) in vec3 aNormal;
-layout(location = 2) in vec2 aUV;
+    layout(location = 0) in vec3 aPosition;
+    layout(location = 1) in vec3 aNormal;
+    layout(location = 2) in vec2 aUV;
 
-uniform mat4 uModel;
-uniform mat4 uView;
-uniform mat4 uProj;
+    uniform mat4 uModel;
+    uniform mat4 uView;
+    uniform mat4 uProj;
 
-out vec3 tNormal;
-out vec2 tUV;
+    out vec3 tNormal;
+    out vec2 tUV;
 
-void main(void)
-{
-    gl_Position = uProj * uView * uModel * vec4(aPosition, 1.0);
-    tNormal = aNormal;
-    tUV = aUV;
-});
+    void main(void)
+    {
+        gl_Position = uProj * uView * uModel * vec4(aPosition, 1.0);
+        tNormal = aNormal;
+        tUV = aUV;
+    });
 
 
 const char *frag_shader = GLSL_CODE(330,
-in vec3 tNormal;
-in vec2 tUV;
+    in vec3 tNormal;
+    in vec2 tUV;
 
-out vec4 fragColor;
+    out vec4 fragColor;
 
-uniform sampler2D uMapDiffuse;
+    uniform sampler2D uMapDiffuse;
 
-void main(void)
-{
-    fragColor = texture(uMapDiffuse, tUV);
-});
+    void main(void)
+    {
+        fragColor = texture(uMapDiffuse, tUV);
+    });
 
 
 struct material
@@ -56,7 +55,7 @@ struct vertex
     glm::vec2 texcoord;
 };
 
-/* vertexbuffer layout definition for OpenGL (i am not really happy with this, but over the years it stuck) */
+/* vertexbuffer layout definition for OpenGL */
 template <>
 struct opengl::layout<vertex>
 {
@@ -71,7 +70,7 @@ int main(int argc, char** argv)
 {
     /* initial window settings */
     viewer::window_settings settings;
-    settings.title = "Model Loadings";
+    settings.title = "Model Loading";
     settings.width = 1280;
     settings.heigth = 720;
 
