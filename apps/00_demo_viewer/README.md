@@ -70,7 +70,7 @@ view.run();
 ## OpenGL Context (Buffer and Shaders)
 The OpenGL context is created on [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) construction and is destroyed on destruction - OpenGL calls are only allowed in between.
 For ease of use I wrapped some of the most commonly used OpenGL functionalities (not feature complete), which is accessed through an [opengl::context](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/context.h) instance.   
-You can still use raw opengl functions but be aware that I track binding identifiers and state options in the context to avoid redundant OpenGL calls (so be sure to reset the state!).
+You can still use raw opengl functions but be aware that I track binding ids and state options in the context to avoid redundant OpenGL calls (so be sure to reset the state!).
 ```C++
 auto& context = view.context();
 ```
@@ -110,6 +110,7 @@ All OpenGL resources are contained in **std::shared_ptr** (it is up to the user 
 Similarly to a shader program, we create vertexarrays and vertexbuffers via the [context](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/context.h).
 To handle generic vertex types, a static layout description is needed by [vertexbuffers](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexbuffer.h) to *enable vertex attributes and set attribute pointer*
 (*I am not really happy with this; may change in the future*).
+**Note:** The construction via the [context](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/context.h) forwards the arguments to the constructor of the resource (check corresponding header for supported arguments).
 ```C++
 /*============= Vertex Defition =============*/
 struct vertex
