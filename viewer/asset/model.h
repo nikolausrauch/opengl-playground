@@ -94,9 +94,10 @@ public:
     {
         m_vao->attach(m_vertexbuffer);
         m_vao->attach(m_indexbuffer);
+        m_vao->unbind();
     }
 
-    opengl::handle<opengl::vertexarray> vao() { return m_vao; }
+    opengl::handle<opengl::vertexarray> vao() const { return m_vao; }
 };
 
 /*========================== Material ==========================*/
@@ -107,7 +108,7 @@ public:
     struct record
     {
         using IndexType = unsigned int;
-        std::reference_wrapper<mesh<Data>> m_mesh;
+        mesh<Data>& m_mesh;
         IndexType m_offset;
         IndexType m_count;
     };

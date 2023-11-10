@@ -113,8 +113,8 @@ int main(int argc, char** argv)
             /* iterate over mesh and render faces with this material */
             for(const auto& record : mat_group.records())
             {
-                record.m_mesh.get().vao()->bind();
-                record.m_mesh.get().vao()->draw(record.m_offset, record.m_count, opengl::primitives::triangles);
+                record.m_mesh.vao()->bind();
+                record.m_mesh.vao()->draw(record.m_offset, record.m_count, opengl::primitives::triangles);
             }
         }
     });

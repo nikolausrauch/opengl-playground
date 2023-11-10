@@ -10,7 +10,6 @@
 namespace asset
 {
 
-
 template<typename Data, typename Material>
 class model_loader
 {
@@ -205,7 +204,6 @@ public:
                     auto& asset_material = (*it).second;
                     asset_material.m_records.emplace_back(asset_mesh, offset.x, offset.y);
                 }
-
             }
             else if(shape.points.indices.size() > 0)
             {
