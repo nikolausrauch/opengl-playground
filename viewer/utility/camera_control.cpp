@@ -6,6 +6,8 @@
 #include "viewer/core/mouse.h"
 #include "viewer/core/window.h"
 
+#include <algorithm>
+
 namespace util
 {
 

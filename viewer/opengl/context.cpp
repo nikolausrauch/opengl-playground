@@ -112,7 +112,7 @@ void set(options option, bool enabled, bool& current)
     }
 }
 
-void debug_context_output(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
+void GLAPIENTRY debug_context_output(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
 {
     (void) length;
     (void) userParam;

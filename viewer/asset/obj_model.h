@@ -10,7 +10,7 @@
 namespace asset
 {
 
-template<typename Data, typename Material>
+template<typename Data, typename Material = std::monostate>
 class model_loader
 {
 public:
@@ -32,7 +32,7 @@ public:
         {
             if(!reader.Error().empty())
             {
-                platform_log(core::log::level::error, "{}", path.string());
+                platform_log(core::log::level::error, "{}", reader.Error());
             }
 
             return nullptr;
@@ -40,16 +40,13 @@ public:
 
         if(!reader.Warning().empty())
         {
-            platform_log(core::log::level::warning, "{}", path.string());
+            platform_log(core::log::level::warning, "{}", reader.Warning());
         }
-
-
 
         auto asset_model = std::make_shared<model<Data, Material>>();
         auto& attrib = reader.GetAttrib();
         auto& shapes = reader.GetShapes();
         auto& materials = reader.GetMaterials();
-
 
         /*============= loading of materials =============*/
         if constexpr (!std::is_empty_v<Material>)

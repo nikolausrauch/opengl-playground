@@ -3,6 +3,7 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
+#include <array>
 #include <functional>
 #include <list>
 #include <string>
