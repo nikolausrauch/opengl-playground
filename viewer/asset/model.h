@@ -97,6 +97,15 @@ public:
         m_vao->unbind();
     }
 
+    mesh(const std::string& name,
+         const opengl::handle<opengl::vertexarray>& vao,
+         const opengl::handle<opengl::vertexbuffer<VertexType>>& vb)
+        : m_name(name), m_vao(vao), m_vertexbuffer(vb)
+    {
+        m_vao->attach(m_vertexbuffer);
+        m_vao->unbind();
+    }
+
     opengl::handle<opengl::vertexarray> vao() const { return m_vao; }
 };
 

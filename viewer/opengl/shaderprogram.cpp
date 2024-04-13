@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <fstream>
 
 namespace opengl
 {
@@ -141,6 +142,22 @@ void shader_program::attach(const std::string &source, shader_type type)
     m_shader[idx] = std::make_unique<shader>(type);
     m_shader[idx]->compile(source);
     glAttachShader(m_handle, m_shader[idx]->handle());
+}
+
+bool shader_program::load(const std::string& path, shader_type type)
+{
+    std::ifstream fileStream(path.c_str());
+
+    if(!fileStream.good())
+    {
+        platform_log(core::log::level::error, "Couldn't open shader file : {0}", path);
+        return false;
+    }
+
+    std::string source( (std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>() );
+    attach(source, type);
+
+    return true;
 }
 
 void shader_program::link()

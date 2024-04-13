@@ -16,12 +16,14 @@ protected:
     std::reference_wrapper<camera> m_cam;
     std::reference_wrapper<core::msg_bus> m_msg_bus;
     std::reference_wrapper<core::window> m_window;
+    bool m_ignore{false};
 
 public:
     camera_control(camera& cam, core::msg_bus& bus, core::window& window);
     virtual ~camera_control() = default;
 
     virtual void update(double dt) = 0;
+    void ignore(bool val);
 
     util::camera& cam();
     core::window& window();

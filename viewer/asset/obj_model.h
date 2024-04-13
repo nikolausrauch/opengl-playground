@@ -214,6 +214,10 @@ public:
                     tinyobj::index_t idx = shape.points.indices[p];
                     detail::load_vertex(vertices[p], attrib, idx, path);
                 }
+
+                auto vao = context.make_vertexarray();
+                auto vertexbuffer = context.make_vertexbuffer<Data>(vertices);
+                asset_model->m_meshes.emplace(std::make_pair(shape.name, mesh<Data>(shape.name, vao, vertexbuffer)));
             }
         }
 

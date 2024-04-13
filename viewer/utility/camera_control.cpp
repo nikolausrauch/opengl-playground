@@ -17,6 +17,11 @@ camera_control::camera_control(camera& cam, core::msg_bus& bus, core::window& wi
 
 }
 
+void camera_control::ignore(bool val)
+{
+    m_ignore = val;
+}
+
 camera& camera_control::cam()
 {
     return m_cam;
@@ -81,6 +86,8 @@ void orbit_control::update(const glm::vec2& diff, float zoom)
 
 void orbit_control::receive(const msg::mouse_button& msg)
 {
+    if(m_ignore) { return; }
+
     if(msg.button == core::mouse::button::left)
     {
         m_button_pressed = msg.pressed;
@@ -90,6 +97,8 @@ void orbit_control::receive(const msg::mouse_button& msg)
 
 void orbit_control::receive(const msg::mouse_position& msg)
 {
+    if(m_ignore) { return; }
+
     if(m_button_pressed)
     {
         auto diff = m_mouse_position - msg.position;
@@ -100,6 +109,7 @@ void orbit_control::receive(const msg::mouse_position& msg)
 
 void orbit_control::receive(const msg::mouse_scroll& msg)
 {
+    if(m_ignore) { return; }
     update({0.0f, 0.0f}, -0.1f * msg.yoffset);
 }
 

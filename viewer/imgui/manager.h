@@ -33,6 +33,8 @@ private:
     ImPlotContext* mImPlotContext{nullptr};
     std::array<bool, 3> m_mouse_buttons{false, false, false};
 
+    bool m_mouse_capture{false};
+
     opengl::handle<opengl::shader_program> m_shader{nullptr};
     opengl::handle<opengl::texture> m_font_texture{nullptr};
     opengl::handle<opengl::vertexarray> m_vertexarray{nullptr};
@@ -45,6 +47,8 @@ public:
 
     void new_frame(float dt);
     void end_frame();
+
+    bool mouse_captured() const;
 
     void receive(const msg::key&);
     void receive(const msg::key_char&);

@@ -48,6 +48,7 @@ public:
     template <typename T> void uniform(const std::string& name, const T& x, const T& y, const T& z, const T& w);
 
     void attach(const std::string& source, shader_type type);
+    bool load(const std::string& path, shader_type type);
 
     void link();
     bool linked() const;

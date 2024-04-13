@@ -80,6 +80,7 @@ util::camera& viewer::camera()
     return m_camera;
 }
 
+
 const core::frameclock& viewer::frameclock() const
 {
     return m_frameclock;
@@ -121,6 +122,8 @@ void viewer::run()
 
     while(!m_window->closed())
     {
+        m_controls->ignore(m_imgui->mouse_captured());
+
         glfw::poll_events();
 
         auto dt = core::time_cast<core::sec>(m_frameclock.restart());

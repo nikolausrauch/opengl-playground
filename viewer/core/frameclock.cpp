@@ -34,6 +34,11 @@ time frameclock::dt() const
     return m_elapsed;
 }
 
+float frameclock::fps() const
+{
+    return m_freq.m_avg;
+}
+
 void frameclock::add(const time dt)
 {
     m_time.m_current = dt;

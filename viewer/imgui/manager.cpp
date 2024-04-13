@@ -166,9 +166,9 @@ void manager::new_frame(float dt)
         io.MousePos = ImVec2(static_cast<float>(mouse.position().x), static_cast<float>(mouse.position().y));
     }
 
+    m_mouse_capture = ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
     // TODO DEBUG
-//    mViewer.mScene.mIgnoreMouse = ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
-//    mViewer.mScene.mIgnoreKeyboard = io.WantCaptureKeyboard;
+    //    mViewer.mScene.mIgnoreKeyboard = io.WantCaptureKeyboard;
 
     /* process imgui draw commands */
     ImGui::NewFrame();
@@ -249,6 +249,11 @@ void manager::end_frame()
     m_context.set(state_blend_eq);
     m_context.set(state_factors.first, state_factors.second);
     m_context.set(state_mode);
+}
+
+bool manager::mouse_captured() const
+{
+    return m_mouse_capture;
 }
 
 void manager::receive(const msg::key& key)
