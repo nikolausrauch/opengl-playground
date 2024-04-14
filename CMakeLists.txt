@@ -66,6 +66,9 @@ target_include_directories( fmt PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_
 add_subdirectory(external/tiny_obj_loader)
 target_compile_options(tiny_obj PRIVATE "$<$<CXX_COMPILER_ID:GNU>:${GCC_COMPILE_SUPPRESS_WARING}>")
 
+add_subdirectory(external/tiny_ply)
+target_compile_options(tinyply PRIVATE "$<$<CXX_COMPILER_ID:GNU>:${GCC_COMPILE_SUPPRESS_WARING}>")
+
 #########################################
 #        Global Compiler Options        #
 #########################################
