@@ -1,7 +1,6 @@
 add_subdirectory(00_demo_viewer)
 
-
-
+add_subdirectory(pointcloud_viewer)
 
 
 #-------- copy all assets -------#

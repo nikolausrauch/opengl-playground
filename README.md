@@ -1,10 +1,32 @@
 <h1 align="center">OpenGL Playground</h1>
 
-> **This project is currently under development.**
+This repository contains proof-of-concept implementations of various rendering / simulation techniques in OpenGL that I wrote over the past few years. 
+
+- Implemented Examples
+  - [x] [pointcloud rendering](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/pointcloud_viewer) (geometry shader constructed billboards)
+  - [ ] volume raycasting
+  - [ ] cloth physics (position based dynamics in compute shader)
+  - [ ] shadow-mapping
+  - [ ] cel-shading (post-process edge detection)
+  - [ ] physically based rendering (+ image based lighting)
+  - [ ] deferred rendering
+  - [ ] screen space ambient occlusion
+  - [ ] screen space reflections
+  - [ ] transclucent shadow map
+  - [ ] texture space subsurface scattering
+  - [ ] voxelizer (compute shader)
+  - [ ] single-pass voxelizer
+
+## Selected Examples
+
+### Pointcloud Rendering (geometry shader billboards)
+
+["1982 Porsche 911 - SiteScape 3D Scan"](https://sketchfab.com/3d-models/1982-porsche-911-sitescape-3d-scan-7e315942b6db428194314285183b5896) by [SiteScape](https://skfb.ly/6XZZM) licensed under CC BY 4.0
+![pc_example](https://github.com/nikolausrauch/opengl-playground/assets/13553309/8eaa0438-dfc5-49e7-b5cc-e1c5c4bc85ad)
 
 
-## Example Viewer
-The [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) class handles window (context) creation, input events, and callback registration (rendering, input, window events, and *ImGui* / *ImPlot* draw calls) - see the [viewer_demos](https://github.com/nikolausrauch/opengl-playground/tree/main/apps/00_demo_viewer) for a more detailed overview.  
+## Minimal Code Example
+The [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) class handles window (context) creation, input events, and callback registration (rendering, input, window events, and *ImGui* / *ImPlot* draw calls) - have a look at the [viewer_demos](https://github.com/nikolausrauch/opengl-playground/tree/main/apps/00_demo_viewer) for a more detailed overview.  
 ```C++
 viewer::window_settings settings;
 settings.title = "Colored Cube";
@@ -16,7 +38,7 @@ viewer view(settings);
 ```
 The OpenGL context is created on [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) construction and is destroyed on destruction - OpenGL calls are only allowed in between.
 For ease of use I wrapped some of the most commonly used OpenGL functionalities (not feature complete), which is accessed through an [opengl::context](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/context.h) instance.
-For example, to create a [shader program](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/shaderprogram.h) the context provides a handle to which the source code can be attached.
+For example, to create a [shader program](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/shaderprogram.h) the context provides a handle to which the source code can be attached, linked and compiled.
 ```C++
 const char *vertex_shader = "
     #version 330\n
@@ -70,7 +92,7 @@ struct opengl::layout<vertex>
         {opengl::type::float_, 4, opengl::buffer_mapping::cast, offsetof(vertex, color)}};
 };
 ```
-With access to the layout description, a [vertexbuffer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexbuffer.h) (here a *colored cube* + indexbuffer) can be created and attached to a [vertexarray](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexarray.h).   
+With access to the layout description, a [vertexbuffer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexbuffer.h) (here a *colored cube* + indexbuffer) can be created and attached to a [vertexarray object](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexarray.h).   
 ```C++
 /* create vertexarray, and attach vertexbuffer and indexbuffer to it */
 auto vao = context.make_vertexarray();
@@ -93,7 +115,7 @@ auto indexbuffer = context.make_indexbuffer<unsigned int>(
 vao->attach(vertexbuffer);
 vao->attach(indexbuffer);
 ```
-In the render callback of the [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) we tell OpenGL to use the previously defined [shader program](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/shaderprogram.h) and initiate a draw call with the defined [vertexarray](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexarray.h).
+In the render callback of the [viewer](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/viewer.h) we use the previously defined [shader program](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/shaderprogram.h) to draw the content of the [vertexarray](https://github.com/nikolausrauch/opengl-playground/blob/main/viewer/opengl/vertexarray.h).
 
 <img src="https://github.com/nikolausrauch/opengl-playground/assets/13553309/a31e5df8-a1eb-44c6-a609-965f72ad9ca6" align="right" height=374px>
 
