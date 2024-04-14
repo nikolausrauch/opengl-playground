@@ -2,7 +2,6 @@ add_executable( pointcloud_viewer
         ${CMAKE_CURRENT_SOURCE_DIR}/pointcloud_viewer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/shader/billboard.geom
         ${CMAKE_CURRENT_SOURCE_DIR}/shader/billboard.vert
-        ${CMAKE_CURRENT_SOURCE_DIR}/shader/debug.frag
         ${CMAKE_CURRENT_SOURCE_DIR}/shader/blinn_phong.frag
         )
 
