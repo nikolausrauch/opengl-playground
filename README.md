@@ -6,7 +6,7 @@ This repository contains proof-of-concept implementations of various rendering /
   - [x] [pointcloud rendering](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/pointcloud_viewer) (geometry shader constructed billboards)
   - [ ] volume raycasting
   - [ ] cloth physics (position based dynamics in compute shader)
-  - [ ] shadow-mapping
+  - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
   - [ ] cel-shading (post-process edge detection)
   - [ ] physically based rendering (+ image based lighting)
   - [ ] deferred rendering
@@ -19,10 +19,14 @@ This repository contains proof-of-concept implementations of various rendering /
 
 ## Selected Examples
 
-### Pointcloud Rendering (geometry shader billboards)
+### Pointcloud Rendering (Geometry Shader Billboards)
 
 ["1982 Porsche 911 - SiteScape 3D Scan"](https://sketchfab.com/3d-models/1982-porsche-911-sitescape-3d-scan-7e315942b6db428194314285183b5896) by [SiteScape](https://skfb.ly/6XZZM) licensed under CC BY 4.0
 ![pc_example](https://github.com/nikolausrauch/opengl-playground/assets/13553309/8eaa0438-dfc5-49e7-b5cc-e1c5c4bc85ad)
+
+### Shadow Mapping of Directional Light Source (PCF)
+["Small City Free Pack](https://skfb.ly/6RTGw) by [mattshield](https://sketchfab.com/mattshield) licensed under CC BY 4.0.
+![shadow_mapping](https://github.com/nikolausrauch/opengl-playground/assets/13553309/17f93f37-ed7b-4ab0-b863-6e809f31ab99)
 
 
 ## Minimal Code Example

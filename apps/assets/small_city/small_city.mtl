@@ -1,0 +1,98 @@
+# Blender MTL File: 'None'
+# Material Count: 8
+
+newmtl World_ap
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.11
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.15
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.16
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.17
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.19
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.8
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
+
+newmtl World_ap.9
+Ns 32.0
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd World_ap_baseColor.jpeg
+map_Ks World_ap_specColor.png
