@@ -32,7 +32,13 @@ static const char* vertex_shader =
 
 static const char* frag_shader =
         GLSL_CODE(330,
+        const int TEX_RGB = 0;
+        const int TEX_RGBA = 1;
+        const int TEX_DEPTH = 2;
+        const int TEX_RED = 3;
+
         uniform sampler2D fontTexture;
+        uniform int textureType;
 
         in vec2 fragUV;
         in vec4 fragColor;
@@ -41,8 +47,40 @@ static const char* frag_shader =
 
         void main()
         {
-            out_Color = fragColor * texture(fontTexture, fragUV.st).rgba;
+            vec4 texColor = vec4(0);
+            switch(textureType)
+            {
+            case TEX_RGB: texColor = vec4(texture(fontTexture, fragUV.st).rgb, 1.0); break;
+            case TEX_RGBA: texColor = texture(fontTexture, fragUV.st).rgba; break;
+            case TEX_DEPTH: texColor = vec4(texture(fontTexture, fragUV.st).rrr, 1.0); break;
+            case TEX_RED: texColor = vec4(texture(fontTexture, fragUV.st).rrr, 1.0); break;
+            default:
+                texColor = texture(fontTexture, fragUV.st);
+            }
+
+            out_Color = fragColor * texColor;
         });
+
+
+namespace detail
+{
+
+int texture_type(opengl::texture_format format)
+{
+    switch(format)
+    {
+    case opengl::texture_format::rgb: return 0;
+    case opengl::texture_format::rgba: return 1;
+    case opengl::texture_format::depth: return 2;
+    case opengl::texture_format::red: return 3;
+    default:
+        return 1;
+    }
+
+    return 1;
+}
+
+}
 
 manager::manager(core::msg_bus& bus, core::window& window, opengl::context& context)
     : m_msg_bus(bus), m_window(window), m_context(context)
@@ -111,7 +149,7 @@ manager::manager(core::msg_bus& bus, core::window& window, opengl::context& cont
     /* texture */
     m_font_texture = context.make_texture(opengl::texture_internal_type::rgba8, opengl::texture_format::rgba, opengl::texture_type::unsigned_byte_);
 
-    if(true)
+    if(false)
     {
         ImFontConfig config;
         config.SizePixels = 26.0f;
@@ -229,6 +267,7 @@ void manager::end_frame()
 
                 auto* texture = reinterpret_cast<opengl::texture*>(pcmd->TextureId);
                 texture->bind(0);
+                m_shader->uniform("textureType", detail::texture_type(texture->format()));
 
                 m_context.draw_elements(opengl::primitives::triangles, static_cast<GLsizei>(pcmd->ElemCount) /  3,
                                       opengl::type::unsigned_int_, static_cast<GLsizei>(pcmd->IdxOffset * sizeof(ImDrawIdx)));

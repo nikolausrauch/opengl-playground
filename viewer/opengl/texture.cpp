@@ -22,6 +22,8 @@ texture::texture(context &gl_context, texture_internal_type internal, texture_fo
     glGenTextures(1, &m_handle);
     platform_assert(m_handle != 0, "Unable to allocate a new texture handle");
 
+    resize(width, height);
+
     parameter(min_filter::linear);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
 }
