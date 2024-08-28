@@ -7,9 +7,6 @@
 #include <tiny_obj_loader/tiny_obj_loader.h>
 #include <tiny_ply/source/tinyply.h>
 
-// DEBUG
-#include <iostream>
-
 namespace asset
 {
 

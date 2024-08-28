@@ -9,6 +9,7 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include <iostream>
 
 struct vertex
 {
