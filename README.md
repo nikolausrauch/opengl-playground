@@ -7,7 +7,7 @@ This repository contains proof-of-concept implementations of various rendering /
   - [ ] volume raycasting
   - [ ] cloth physics (position based dynamics in compute shader)
   - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
-  - [ ] cel-shading (post-process edge detection)
+  - [x] cel-shading (post-process edge detection)
   - [ ] physically based rendering (+ image based lighting)
   - [ ] deferred rendering
   - [ ] screen space ambient occlusion
