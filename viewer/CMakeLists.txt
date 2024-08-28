@@ -53,6 +53,7 @@ set( ASSET_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/model.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/obj_model.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/pointcloud.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/asset/shapes.h"
 
     "${CMAKE_CURRENT_SOURCE_DIR}/asset/detail/obj_model.h"
  )

@@ -2,7 +2,7 @@ add_subdirectory(00_demo_viewer)
 
 add_subdirectory(pointcloud_viewer)
 add_subdirectory(shadow_mapping)
-
+add_subdirectory(cel_shading)
 
 #-------- copy all assets -------#
 add_custom_target( copy_all_assets ALL
