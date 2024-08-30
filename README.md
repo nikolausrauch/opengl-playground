@@ -4,7 +4,7 @@ This repository contains proof-of-concept implementations of various rendering /
 
 - Implemented Examples
   - [x] [pointcloud rendering](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/pointcloud_viewer) (geometry shader constructed billboards)
-  - [ ] volume raycasting
+  - [x] [volume raycasting](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/volume_raycasting) (MIP)
   - [ ] cloth physics (position based dynamics in compute shader)
   - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
   - [x] [cel-shading (post-process edge detection)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/cel_shading)
