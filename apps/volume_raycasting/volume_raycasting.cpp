@@ -24,11 +24,28 @@ struct opengl::layout<vertex>
     };
 };
 
+
+/* Directional Light Source */
+struct light
+{
+    glm::vec3 angles = glm::vec3(glm::quarter_pi<float>(), glm::quarter_pi<float>(), glm::quarter_pi<float>());
+    glm::vec3 direction = -glm::normalize(  glm::vec3(glm::sin(angles.x) * glm::sin(angles.y),
+                                                    glm::cos(angles.y),
+                                                    glm::cos(angles.x) * glm::sin(angles.y)));
+
+    glm::vec3 ambient = {0.2, 0.2, 0.2};
+    glm::vec3 color = {1.0, 1.0, 1.0};
+};
+
 /* helper */
 struct raycasting
 {
     float step_size = 0.005f;
     int max_steps = 4*256;
+
+    int render_type = 1;
+    float iso_value = 0.15f;
+    float gamma = 1.5f;
 };
 
 int main(int argc, char** argv)
@@ -40,6 +57,7 @@ int main(int argc, char** argv)
     settings.heigth = 720;
 
     raycasting raycast_settings;
+    light light_dir;
 
     /* construct viewer (creates window and context) */
     viewer view(settings);
@@ -122,12 +140,21 @@ int main(int argc, char** argv)
             shader_raycast->uniform("uModel", model);
             shader_raycast->uniform("uView", camera.view());
             shader_raycast->uniform("uProj", camera.projection());
-            shader_raycast->uniform("uEntryTex", 0);
-            shader_raycast->uniform("uExitTex", 1);
-            shader_raycast->uniform("uVolumeTex", 2);
             shader_raycast->uniform("uScreenSize", glm::vec2(window.size().x, window.size().y));
-            shader_raycast->uniform("uStepSize", raycast_settings.step_size);
-            shader_raycast->uniform("uMaxStep", raycast_settings.max_steps);
+
+            shader_raycast->uniform("uRaycast.entry", 0);
+            shader_raycast->uniform("uRaycast.exit", 1);
+            shader_raycast->uniform("uRaycast.volume", 2);
+            shader_raycast->uniform("uRaycast.stepSize", raycast_settings.step_size);
+            shader_raycast->uniform("uRaycast.maxSteps", raycast_settings.max_steps);
+
+            shader_raycast->uniform("uRaycast.renderType", raycast_settings.render_type);
+            shader_raycast->uniform("uRaycast.isoValue", raycast_settings.iso_value);
+            shader_raycast->uniform("uRaycast.gamma", raycast_settings.gamma);
+
+            shader_raycast->uniform("uLight.direction", light_dir.direction);
+            shader_raycast->uniform("uLight.ambient", light_dir.ambient);
+            shader_raycast->uniform("uLight.color", light_dir.color);
 
             tex_entry->bind(0);
             tex_exit->bind(1);
@@ -171,8 +198,6 @@ int main(int argc, char** argv)
         ImGui::Begin("##Settings", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar);
         {
             ImGui::TextColored({1.0, 1.0, 1.0, 1.0}, "FPS:       %4.2f        ", view.frameclock().fps());
-
-
             ImGui::Dummy({0.0, 16.0});
         }
 
@@ -180,6 +205,38 @@ int main(int argc, char** argv)
         ImGui::PushID("raycast");
         ImGui::DragFloat("step_size", &raycast_settings.step_size, 0.0001, 0.0, 1.0);
         ImGui::DragInt("max_steps", &raycast_settings.max_steps, 1, 0, 1024*4);
+
+        ImGui::Separator();
+
+        ImGui::RadioButton("ISO", &raycast_settings.render_type, 0); ImGui::SameLine();
+        ImGui::RadioButton("MIP", &raycast_settings.render_type, 1);
+
+        ImGui::DragFloat("iso_value", &raycast_settings.iso_value, 0.0001, 0.0, 1.0);
+
+        ImGui::Dummy({0.0, 16.0});
+
+        ImGui::TextColored({1.0, 1.0, 0, 1.0}, "Light: ");
+        ImGui::PushID("light");
+        if(ImGui::DragFloat2("direction",  &light_dir.angles[0], 0.01,
+                              -2.0f*glm::pi<float>(),
+                              2.0f*glm::pi<float>()))
+        {
+            glm::vec3 dir =
+                {
+                    glm::sin(light_dir.angles.x) * glm::sin(light_dir.angles.y),
+                    glm::cos(light_dir.angles.y),
+                    glm::cos(light_dir.angles.x) * glm::sin(light_dir.angles.y)
+                };
+
+            light_dir.direction = glm::normalize(-dir);
+        }
+        ImGui::ColorEdit3("ambient",  &light_dir.ambient[0]);
+        ImGui::ColorEdit3("color",  &light_dir.color[0]);
+        ImGui::PopID();
+
+        ImGui::Dummy({0.0, 16.0});
+
+        ImGui::Separator();
 
         ImGui::TextColored({1.0, 1.0, 0, 1.0}, "Entry / Exit Texture");
         {
