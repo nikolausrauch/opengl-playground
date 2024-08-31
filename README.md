@@ -24,7 +24,7 @@ This repository contains proof-of-concept implementations of various rendering /
 ["1982 Porsche 911 - SiteScape 3D Scan"](https://sketchfab.com/3d-models/1982-porsche-911-sitescape-3d-scan-7e315942b6db428194314285183b5896) by [SiteScape](https://skfb.ly/6XZZM) licensed under CC BY 4.0
 ![pc_example](https://github.com/nikolausrauch/opengl-playground/assets/13553309/8eaa0438-dfc5-49e7-b5cc-e1c5c4bc85ad)
 
-### Volume-Raycastin (MIP and ISO-Surface Rendering)
+### Volume-Raycasting (MIP and ISO-Surface Rendering)
 ["Skull"](https://klacansky.com/open-scivis-datasets/) from volvis.org and Siemens Medical Solutions, Forchheim, Germany
 ![mipiso](https://github.com/user-attachments/assets/5428c816-09b2-4698-b9c2-06a3587c2aa6)
 
