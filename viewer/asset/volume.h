@@ -20,6 +20,7 @@ public:
     using result_type = std::shared_ptr<opengl::texture_3D>;
 
     static result_type load_raw(opengl::context& context, const std::filesystem::path& path, const glm::uvec3& size);
+    static result_type load_dat(opengl::context& context, const std::filesystem::path& path);
 };
 
 }
