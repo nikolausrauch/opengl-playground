@@ -85,6 +85,45 @@ public:
         auto ibo = context.make_indexbuffer<unsigned int>(indices);
         return std::make_shared<mesh<Data>>("unit_cube", vao, vbo, ibo);
     }
+
+
+    static result_type create_pyramid(opengl::context& context)
+    {
+        static_assert(detail::has_member<Data>::position::value, "Vertex Type needs a position!");
+
+        std::vector<Data> vertices(18);
+        {
+            vertices[0].position = {0.0, 0.0, 0.0};
+            vertices[1].position = {  std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+            vertices[2].position = { -std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+
+            vertices[3].position = {0.0, 0.0, 0.0};
+            vertices[4].position = { std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+            vertices[5].position = { std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+
+            vertices[6].position = {0.0, 0.0, 0.0};
+            vertices[7].position = { -std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+            vertices[8].position = {  std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+
+            vertices[9].position  = {0.0, 0.0, 0.0};
+            vertices[10].position = { -std::sqrt(2.0f), -1.0,  -std::sqrt(2.0f)};
+            vertices[11].position = { -std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+
+
+            vertices[12].position = { -std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+            vertices[13].position = {  std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+            vertices[14].position = {  std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+
+            vertices[15].position = { -std::sqrt(2.0f), -1.0, -std::sqrt(2.0f)};
+            vertices[16].position = {  std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+            vertices[17].position = { -std::sqrt(2.0f), -1.0,  std::sqrt(2.0f)};
+        }
+
+        auto vao = context.make_vertexarray();
+        auto vbo = context.make_vertexbuffer<Data>(vertices);
+        return std::make_shared<mesh<Data>>("unit_pyramid", vao, vbo);
+    }
+
 };
 
 }

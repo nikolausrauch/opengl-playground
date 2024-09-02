@@ -21,6 +21,7 @@ class texture;
 class renderbuffer;
 class framebuffer;
 
+template<typename T> class buffer;
 template<typename T> class indexbuffer;
 template<typename T> class vertexbuffer;
 
@@ -145,6 +146,7 @@ private:
 
     float m_line_width;
     float m_point_size;
+    bool m_depth_mask;
 
     GLuint m_shader_binding;
     GLuint m_vertexarray_binding;
@@ -163,6 +165,9 @@ public:
     bool set(options option, bool enable);
     bool enable(options option);
     bool disable(options option);
+
+    bool depth_mask(bool enable);
+    bool depth_mask() const;
 
     blend_equation set(blend_equation equation);
     std::pair<blend_func_factor_alpha, blend_func_factor_alpha> set(blend_func_factor_alpha src, blend_func_factor_alpha dst);
@@ -187,6 +192,7 @@ public:
 
     void bind_vertexarray(GLuint handle);
     void bind_buffer(GLenum bind, GLuint handle);
+    void bind_buffer_base(GLenum target, GLuint index, GLuint handle);
     void bind_texture(GLenum bind, GLuint handle, unsigned int unit = 0);
     void bind_renderbuffer(GLenum bind, GLuint handle);
     void bind_framebuffer(GLenum bind, GLuint handle);
@@ -228,6 +234,12 @@ public:
     handle<vertexbuffer<data>> make_vertexbuffer(Args... args)
     {
         return handle<vertexbuffer<data>>( new vertexbuffer<data>(*this, std::forward<Args>(args)...) );
+    }
+
+    template<typename data, typename... Args>
+    handle<buffer<data>> make_buffer(Args... args)
+    {
+        return handle<buffer<data>>( new buffer<data>(*this, std::forward<Args>(args)...) );
     }
 
 private:

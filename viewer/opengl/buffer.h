@@ -3,7 +3,6 @@
 #include "context.h"
 
 #include <initializer_list>
-#include <stdexcept>
 #include <vector>
 
 
@@ -42,7 +41,15 @@ enum class buffer_target : GLenum
     array               = GL_ARRAY_BUFFER,
     copy_read			= GL_COPY_READ_BUFFER,
     copy_write			= GL_COPY_WRITE_BUFFER,
-    element_array		= GL_ELEMENT_ARRAY_BUFFER
+    element_array		= GL_ELEMENT_ARRAY_BUFFER,
+    shader_storage      = GL_SHADER_STORAGE_BUFFER,
+    dispatch_indirect   = GL_DISPATCH_INDIRECT_BUFFER,
+    draw_indirect       = GL_DRAW_INDIRECT_BUFFER,
+    texture_buffer      = GL_TEXTURE_BUFFER,
+    uniform             = GL_UNIFORM_BUFFER,
+    transform_feedback  = GL_TRANSFORM_FEEDBACK_BUFFER,
+    query               = GL_QUERY_BUFFER,
+    atomic_counter      = GL_ATOMIC_COUNTER_BUFFER
 };
 
 
@@ -57,7 +64,7 @@ protected:
     GLuint m_handle;
     size_t m_num_items;
 
-    buffer(context& context, buffer_target target, buffer_usage usage);
+    buffer(context &context, buffer_target target, buffer_usage usage);
     buffer(context &context, buffer_target target, size_t number, buffer_usage usage);
     buffer(context &context, buffer_target target_, std::initializer_list<T> items, buffer_usage usage);
     buffer(context &context, buffer_target target_, const std::vector<T>& items, buffer_usage usage);
@@ -84,6 +91,11 @@ public:
 
     void bind();
     void unbind();
+
+    void bind_base(size_t index);
+    void bind_base(buffer_target target, size_t index);
+
+    friend context;
 };
 
 
@@ -246,6 +258,18 @@ template<typename T>
 void buffer<T>::unbind()
 {
     m_context.bind_buffer(static_cast<GLenum>(m_target), 0);
+}
+
+template<typename T>
+void buffer<T>::bind_base(size_t index)
+{
+    m_context.bind_buffer_base(static_cast<GLenum>(m_target), static_cast<GLuint>(index), m_handle);
+}
+
+template<typename T>
+void buffer<T>::bind_base(buffer_target target, size_t index)
+{
+    m_context.bind_buffer_base(static_cast<GLenum>(target), static_cast<GLuint>(index), m_handle);
 }
 
 }

@@ -209,6 +209,21 @@ bool context::disable(options option)
     return set(option, false);
 }
 
+bool context::depth_mask(bool enable)
+{
+    auto current = m_depth_mask;
+
+    m_depth_mask = enable;
+    glDepthMask(enable);
+
+    return current;
+}
+
+bool context::depth_mask() const
+{
+    return m_depth_mask;
+}
+
 blend_equation context::set(blend_equation equation)
 {
     auto previous = m_blend_equation;
@@ -376,6 +391,20 @@ void context::bind_buffer(GLenum bind, GLuint handle)
     m_buffer_binding[bind] = handle;
 }
 
+void context::bind_buffer_base(GLenum target, GLuint index, GLuint handle)
+{
+    if(!( target == static_cast<GLenum>(buffer_target::shader_storage) ||
+          target == static_cast<GLenum>(buffer_target::atomic_counter) ||
+          target == static_cast<GLenum>(buffer_target::transform_feedback) ||
+          target == static_cast<GLenum>(buffer_target::uniform))
+        )
+    {
+        platform_log(core::log::level::error, "Invalid buffer base target (must be of type shader_storage, atomic counter, transform feedback, or uniform)");
+    }
+
+    glBindBufferBase(target, index, handle);
+}
+
 void context::bind_texture(GLenum bind, GLuint handle, unsigned int unit)
 {
     glActiveTexture(GL_TEXTURE0 + unit);
@@ -474,6 +503,7 @@ context::context(glfw::window& window)
     m_options[options::stencil_test] = glIsEnabled(static_cast<GLenum>(options::stencil_test));
     m_options[options::dither] = glIsEnabled(static_cast<GLenum>(options::dither));
 
+    m_depth_mask = detail::query_bool(GL_DEPTH_WRITEMASK);
     m_blend_equation = static_cast<blend_equation>(detail::query_int(GL_BLEND_EQUATION_RGB));
     m_blend_func[0] = static_cast<blend_func_factor_alpha>(detail::query_int(GL_BLEND_SRC_ALPHA));
     m_blend_func[1] = static_cast<blend_func_factor_alpha>(detail::query_int(GL_BLEND_DST_ALPHA));
