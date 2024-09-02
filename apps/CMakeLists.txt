@@ -4,6 +4,7 @@ add_subdirectory(pointcloud_viewer)
 add_subdirectory(shadow_mapping)
 add_subdirectory(cel_shading)
 add_subdirectory(volume_raycasting)
+add_subdirectory(deferred_rendering)
 
 
 #-------- copy all assets -------#

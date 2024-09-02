@@ -9,7 +9,7 @@ This repository contains proof-of-concept implementations of various rendering /
   - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
   - [x] [cel-shading (post-process edge detection)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/cel_shading)
   - [ ] physically based rendering (+ image based lighting)
-  - [ ] deferred rendering
+  - [x] [deferred rendering (light volumes)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/deferred_rendering))
   - [ ] screen space ambient occlusion
   - [ ] screen space reflections
   - [ ] transclucent shadow map
