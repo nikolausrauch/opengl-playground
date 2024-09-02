@@ -95,7 +95,7 @@ float camera::far_plane() const
 
 const glm::mat4 camera::view() const
 {
-    return glm::lookAt(m_position, m_lookat, m_initup) * glm::translate(glm::mat4(1.0), -m_position);
+    return glm::lookAt(m_position, m_lookat, m_initup);// * glm::translate(glm::mat4(1.0), -m_position);
 }
 
 const glm::mat4 camera::projection() const

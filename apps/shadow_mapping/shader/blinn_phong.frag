@@ -6,10 +6,6 @@ struct Light
 
     vec3 ambient;
     vec3 color;
-
-    float bias;
-    float spacing;
-    int samples;
 };
 
 struct Shadow
@@ -39,8 +35,8 @@ out vec4 fragColor;
 
 in VS_OUT
 {
-    vec3 normal;
     vec3 fragPos;
+    vec3 normal;
     vec2 texCoord;
     vec4 fragPosLightSpace;
 } fs_in;
@@ -118,8 +114,8 @@ void main(void)
 
     float shadow = compute_light_coverage(fs_in.fragPosLightSpace, lightDir, uShadow.bias, uShadow.spacing, uShadow.samples);
     illuminance += (1.0 - shadow) * uLight.color * brdf_blinn_phong(lightDir, viewDir, normal,
-                                                   vec3(texture(uMaterial.map_diffuse, fs_in.texCoord)),
-                                                   vec3(texture(uMaterial.map_specular, fs_in.texCoord)),
+                                                   texture(uMaterial.map_diffuse, fs_in.texCoord).rgb,
+                                                   texture(uMaterial.map_specular, fs_in.texCoord).rgb,
                                                    uMaterial.shininess);
 
     fragColor = vec4(illuminance, 1.0);

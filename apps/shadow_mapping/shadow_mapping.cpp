@@ -11,6 +11,9 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include <glm/gtx/string_cast.hpp>
+#include <iostream>
+
 struct material
 {
     float shininess = 32.0;
@@ -69,14 +72,14 @@ int main(int argc, char** argv)
     /* initial window settings */
     viewer::window_settings settings;
     settings.title = "Shadow Mapping";
-    settings.width = 1280;
-    settings.heigth = 720;
+    settings.width = 1280*2;
+    settings.heigth = 720*2;
 
     /* construct viewer (creates window and context) */
     viewer view(settings);
 
     auto& camera = view.camera();
-    camera.position({-2.7, 1.75, -3.2});
+    camera.position({-5.0, 3.0, -6.0});
 
     auto& context = view.context();
     light dir_light;
@@ -121,7 +124,7 @@ int main(int argc, char** argv)
 
     view.on_render([&](auto& window, float dt)
     {
-        auto model_matrix = glm::translate(glm::scale(glm::vec3{1.0f, 1.0f, 1.0f} * 0.05f), {0.0f, 2.0f, 0.0f});
+        auto model_matrix = glm::translate(glm::scale(glm::vec3(0.05f)), {0.0f, 2.0f, 0.0f});
         glm::mat4 light_proj = glm::ortho(-shadow_settings.scale, shadow_settings.scale, -shadow_settings.scale, shadow_settings.scale,
                                            shadow_settings.near_far_plane.x, shadow_settings.near_far_plane.y);
         glm::mat4 light_view = glm::lookAt(-shadow_settings.distance * dir_light.direction,
@@ -145,7 +148,6 @@ int main(int argc, char** argv)
 
             for(const auto& [_, mesh] : model->meshes())
             {
-                mesh.vao()->bind();
                 mesh.vao()->draw(opengl::primitives::triangles);
             }
 
@@ -191,7 +193,6 @@ int main(int argc, char** argv)
                 /* iterate over mesh and render faces with this material */
                 for(const auto& record : mat_group.records())
                 {
-                    record.m_mesh.vao()->bind();
                     record.m_mesh.vao()->draw(record.m_offset, record.m_count, opengl::primitives::triangles);
                 }
             }
@@ -233,7 +234,7 @@ int main(int argc, char** argv)
             ImGui::PushID("light");
             if(ImGui::DragFloat2("direction",  &dir_light.angles[0], 0.01,
                                   -2.0f*glm::pi<float>(),
-                                  2.0f*glm::pi<float>()))
+                                   2.0f*glm::pi<float>()))
             {
                 glm::vec3 dir =
                     {

@@ -11,8 +11,8 @@ uniform mat4 uLightSpace;
 
 out VS_OUT
 {
-    vec3 normal;
     vec3 fragPos;
+    vec3 normal;
     vec2 texCoord;
     vec4 fragPosLightSpace;
 } vs_out;

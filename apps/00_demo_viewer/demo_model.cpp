@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 
     /* set camera position */
     auto& camera = view.camera();
-    camera.position({1.75, 0.0, 0.0f});
+    camera.position({3.25, 0.0, 0.0f});
 
     /* load model with specified vertex and material definitions (--> see asset/model.h for all possible member) */
     auto& context = view.context();

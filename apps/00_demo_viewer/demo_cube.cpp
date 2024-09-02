@@ -66,13 +66,13 @@ int main(int argc, char** argv)
 
     /* set camera parameter */
     auto& cam = view.camera();
-    cam.position({2.0f, 2.0f, 2.0f});
+    cam.position({4.0f, 4.0f, 4.0f});
     cam.look_at({0.0f, 0.0f, 0.0f});
 
     /* access context and create opengl resources */
     auto& context = view.context();
 
-    /* create vertexarray, and attach vertexbuffer and indexbuffer to it */
+    /* create vertexarray, and attach vert exbuffer and indexbuffer to it */
     auto vao = context.make_vertexarray();
     auto vertexbuffer = context.make_vertexbuffer<vertex>(
                 std::initializer_list<vertex>

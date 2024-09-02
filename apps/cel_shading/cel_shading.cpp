@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 
     /* set camera position */
     auto& camera = view.camera();
-    camera.position({0.5, 0.1, 0.5});
+    camera.position({1.0, 0.2, 1.0});
     camera.clip_planes(0.1, 3.0);
 
     auto& context = view.context();
