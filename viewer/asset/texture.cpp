@@ -10,13 +10,13 @@
 namespace asset
 {
 
-texture_loader::result_type_tex texture_loader::load(opengl::context& gl_context, const std::filesystem::path &path)
+texture_loader::result_type_tex texture_loader::load(opengl::context& gl_context, const std::filesystem::path &path, bool flip)
 {
     int width = 1;
     int height = 1;
     int components = 4;
 
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(flip);
     unsigned char* data = stbi_load(path.string().c_str(), &width, &height, &components, 4);
 
     if(data == nullptr)
@@ -44,13 +44,13 @@ texture_loader::result_type_tex texture_loader::load(opengl::context& context, u
     return result_type_tex(new opengl::texture(context, width, height, color));
 }
 
-texture_loader::result_type_cube texture_loader::load_cube(opengl::context& gl_context, const std::array<std::filesystem::path, 6>& paths)
+texture_loader::result_type_cube texture_loader::load_cube(opengl::context& gl_context, const std::array<std::filesystem::path, 6>& paths, bool flip)
 {
     int width = 1;
     int height = 1;
     int components = 4;
 
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(flip);
 
     auto* tex = new opengl::texture_cube(gl_context, width, height);
     for(int i = 0; i < paths.size(); i++)
