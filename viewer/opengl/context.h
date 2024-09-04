@@ -74,7 +74,8 @@ enum class options : GLenum
     depth_test = GL_DEPTH_TEST,
     scissor_test = GL_SCISSOR_TEST,
     stencil_test = GL_STENCIL_TEST,
-    dither = GL_DITHER
+    dither = GL_DITHER,
+    cube_map_seamless = GL_TEXTURE_CUBE_MAP_SEAMLESS
 };
 
 enum class polygon_face : GLenum

@@ -101,6 +101,7 @@ set( PLATFORM_OPENGL_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/vertexarray.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texture.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texture3D.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texturecube.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/renderbuffer.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/framebuffer.h"
 
@@ -115,6 +116,7 @@ set( PLATFORM_OPENGL_HDR
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/vertexarray.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texture3D.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/opengl/texturecube.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/renderbuffer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/opengl/framebuffer.cpp"
  )
@@ -131,9 +133,7 @@ source_group( TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${VIEWER_SRC} ${VIEWER_HDR}
 #################################
 #      Build GUI Executable     #
 #################################
-add_library( viewer STATIC ${VIEWER_SRC} ${VIEWER_HDR}
-    opengl/texture3d.h opengl/texture3d.cpp
-    asset/volume.h asset/volume.cpp )
+add_library( viewer STATIC ${VIEWER_SRC} ${VIEWER_HDR} )
 
 target_link_libraries( viewer Threads::Threads OpenGL::GL glfw glm_static glad_static imgui_static stb_image fmt tiny_obj tinyply )
 target_include_directories( viewer PUBLIC

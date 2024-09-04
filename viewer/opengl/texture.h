@@ -147,12 +147,12 @@ public:
     texture_format format() const;
     texture_type type() const;
 
+    void generate_mip_maps();
+
 private:
     texture(context& gl_context, texture_internal_type internal, texture_format format, texture_type type,
             unsigned int width = 1, unsigned int height = 1, const glm::vec4& color = {0, 0, 0, 255});
     texture(context& gl_context, unsigned int width = 1, unsigned int height = 1, const glm::vec4& color = {0, 0, 0, 255});
-
-    void generate_mip_maps();
 
     friend context;
     friend asset::texture_loader;

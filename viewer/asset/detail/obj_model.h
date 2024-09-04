@@ -143,7 +143,7 @@ void load_material_texture(auto& context, auto& member, const std::string& tex_n
 {
     if(tex_name.empty())
     {
-        platform_log(core::log::level::error, "{} missing for material {} in {}", map_name, material_name, filepath.string());
+        platform_log(core::log::level::error, "{} missing for material {} in {}", map_name, tex_name, material_name, filepath.string());
         member = std::dynamic_pointer_cast<opengl::texture>(texture_loader::load(context, 1, 1, default_value));
         platform_log(core::log::level::warning, "default {} loaded for material {}", map_name, material_name);
     }
@@ -212,7 +212,7 @@ void load_material(auto& context, MaterialType& material, const tinyobj::materia
 
     if constexpr(detail::has_member<MaterialType>::map_diffuse::value)
     {
-        load_material_texture(context, material.map_diffuse, loaded.diffuse_texname, color{0, 0, 0, 255}, "diffuse map", loaded.name, filepath);
+        load_material_texture(context, material.map_diffuse, loaded.diffuse_texname, color{255, 255, 255, 255}, "diffuse map", loaded.name, filepath);
     }
 
     if constexpr(detail::has_member<MaterialType>::map_specular::value)
