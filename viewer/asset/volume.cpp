@@ -83,7 +83,7 @@ volume_loader::result_type volume_loader::load_dat(opengl::context& gl_context, 
     } _header;
 
     file.read(reinterpret_cast<char*>(&_header), sizeof(_header));
-    assert(size - sizeof(_header) == _header.x * _header.y * _header.z * 2);
+    assert(f_size - sizeof(_header) == _header.x * _header.y * _header.z * 2);
 
     std::vector<std::uint8_t> data(f_size);
     data.resize(f_size - sizeof(_header));

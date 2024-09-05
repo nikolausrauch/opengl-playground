@@ -6,6 +6,7 @@ add_subdirectory(cel_shading)
 add_subdirectory(volume_raycasting)
 add_subdirectory(deferred_rendering)
 add_subdirectory(reflection_probes)
+add_subdirectory(temporal_anti_aliasing)
 
 
 #-------- copy all assets -------#

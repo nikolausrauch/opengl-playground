@@ -3,26 +3,27 @@
 This repository contains proof-of-concept implementations of various rendering / simulation techniques in OpenGL that I wrote over the past few years. 
 
 - Implemented Examples
-  - [x] [pointcloud rendering](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/pointcloud_viewer) (geometry shader constructed billboards)
-  - [x] [volume raycasting](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/volume_raycasting) (MIP / ISO-Surface)
-  - [ ] cloth physics (position based dynamics in compute shader)
+  - [x] [pointcloud rendering (geometry shader constructed billboards)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/pointcloud_viewer)
+  - [x] [volume raycasting (MIP / ISO-Surface)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/volume_raycasting)
+  - [x] [temporal anti aliasing (AABB clamping rectification)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/temporal_anti_aliasing)
   - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
   - [x] [cel-shading (post-process edge detection)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/cel_shading)
   - [ ] physically based rendering (+ image based lighting)
   - [x] [deferred rendering (light volumes)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/deferred_rendering)
   - [x] [reflection probes (AABB parallax correction)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/reflection_probes)
-  - [ ] screen space ambient occlusion
   - [ ] screen space reflections
+  - [ ] screen space ambient occlusion
   - [ ] transclucent shadow map
   - [ ] texture space subsurface scattering
   - [ ] voxelizer (compute shader)
   - [ ] single-pass voxelizer
+  - [ ] cloth physics (position based dynamics in compute shader)
 
 ## Selected Examples
 
 ### Reflection Probes (AABB Geometry Proxy for Parallax Correction)
 ["Wanderers](https://sketchfab.com/3d-models/wanderers-f9464c725e1d47e482d988d355da4a7a) by [Bastien Genbrugge](https://sketchfab.com/bastienBGR) licensed under CC BY 4.0.
-![reflection_probes](https://github.com/user-attachments/assets/b7539a17-c7c6-4f6a-91b2-77b1fa9c2735)
+![reflection_probes](https://github.com/user-attachments/assets/5fc5dc69-2142-4c84-bdff-4ef270465a92)
 
 ### Volume-Raycasting (MIP and ISO-Surface Rendering)
 ["Skull"](https://klacansky.com/open-scivis-datasets/) from volvis.org and Siemens Medical Solutions, Forchheim, Germany
