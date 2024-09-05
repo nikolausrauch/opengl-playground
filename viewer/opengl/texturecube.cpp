@@ -141,7 +141,7 @@ void texture_cube::generate_mip_maps()
 {
     if(m_format == texture_format::rgb_int || m_format == texture_format::rgba_int) return;
 
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 1);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 8);
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 }
 
@@ -154,7 +154,7 @@ texture_cube::texture_cube(context& gl_context, texture_internal_type internal, 
     resize(width, height);
 
     parameter(min_filter::linear);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 1);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 8);
 }
 
 
@@ -167,7 +167,7 @@ texture_cube::texture_cube(context& gl_context, unsigned int width, unsigned int
     std::fill(m_sizes.begin(), m_sizes.end(), glm::uvec2{width, height});
 
     parameter(min_filter::linear);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 1);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 8);
 }
 
 

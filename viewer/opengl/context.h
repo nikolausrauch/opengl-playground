@@ -18,6 +18,7 @@ namespace opengl
 class shader_program;
 class vertexarray;
 class texture;
+class texture_cube;
 class renderbuffer;
 class framebuffer;
 
@@ -211,6 +212,12 @@ public:
     handle<texture> make_texture(Args... args)
     {
         return handle<texture>( new texture(*this, std::forward<Args>(args)...) );
+    }
+
+    template<typename... Args>
+    handle<texture_cube> make_texture_cube(Args... args)
+    {
+        return handle<texture_cube>( new texture_cube(*this, std::forward<Args>(args)...) );
     }
 
     template<typename... Args>

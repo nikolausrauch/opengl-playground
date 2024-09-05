@@ -59,9 +59,11 @@ public:
 
     void attach_color(GLuint unit, const handle<texture>& texture);
     void attach_color(GLuint unit, const handle<renderbuffer>& buffer);
+    void attach_color(GLuint unit, const handle<texture_cube>& texture);
 
     void attach_depth(const handle<texture>& texture);
     void attach_depth(const handle<renderbuffer>& buffer);
+    void attach_depth(const handle<texture_cube>& texture);
 
     void bind(framebuffer_bind options = framebuffer_bind::read_write);
     void unbind(framebuffer_bind options = framebuffer_bind::read_write);

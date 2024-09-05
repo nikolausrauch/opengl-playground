@@ -208,6 +208,11 @@ void shader_program::unbind()
     m_context.bind_shader(0);
 }
 
+GLuint shader_program::gl_handle() const
+{
+    return m_handle;
+}
+
 void shader_program::validate()
 {
     platform_assert(m_linked, "Shaderprogram is not linked");
@@ -325,6 +330,8 @@ namespace detail
     void uniform(GLint location, GLboolean x, GLboolean y) { glUniform2i(location, x, y); }
     void uniform(GLint location, GLboolean x, GLboolean y, GLboolean z) { glUniform3i(location, x, y, z); }
     void uniform(GLint location, GLboolean x, GLboolean y, GLboolean z, GLboolean w) { glUniform4i(location, x, y, z, w); }
+
+    void uniform(GLint location, const glm::mat4& m, const std::size_t size) { glUniformMatrix4fv(location, size, GL_FALSE, glm::value_ptr(m)); }
 }
 
 }

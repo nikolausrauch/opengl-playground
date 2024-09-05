@@ -3,6 +3,7 @@
 #include "context.h"
 
 #include <array>
+#include <vector>
 #include <unordered_map>
 #include <memory>
 #include <string>
@@ -47,6 +48,8 @@ public:
     template <typename T> void uniform(const std::string& name, const T& x, const T& y, const T& z);
     template <typename T> void uniform(const std::string& name, const T& x, const T& y, const T& z, const T& w);
 
+    template <typename T, std::size_t S> void uniform(const std::string& name, const std::array<T, S>& value);
+
     void attach(const std::string& source, shader_type type);
     bool load(const std::string& path, shader_type type);
 
@@ -55,6 +58,8 @@ public:
 
     void bind();
     void unbind();
+
+    GLuint gl_handle() const;
 
 private:
     shader_program(context& gl_context);
@@ -137,6 +142,8 @@ namespace detail
     void uniform(GLint location, GLboolean x, GLboolean y);
     void uniform(GLint location, GLboolean x, GLboolean y, GLboolean z);
     void uniform(GLint location, GLboolean x, GLboolean y, GLboolean z, GLboolean w);
+
+    void uniform(GLint location, const glm::mat4& m, const std::size_t size);
 }
 
 template <typename T>
@@ -165,6 +172,13 @@ void shader_program::uniform(const std::string& name, const T& x, const T& y, co
 {
     GLint location = uniform_location(name);
     detail::uniform(location, x, y, z, w);
+}
+
+template <typename T, std::size_t S>
+void shader_program::uniform(const std::string& name, const std::array<T, S>& value)
+{
+    GLint location = uniform_location(name);
+    detail::uniform(location, value[0], S);
 }
 
 }

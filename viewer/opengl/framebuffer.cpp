@@ -4,6 +4,7 @@
 #include "viewer/core/log.h"
 #include "renderbuffer.h"
 #include "texture.h"
+#include "texturecube.h"
 
 namespace opengl
 {
@@ -111,6 +112,23 @@ void framebuffer::attach_color(GLuint unit, const handle<renderbuffer> &buffer)
     unbind();
 }
 
+void framebuffer::attach_color(GLuint unit, const handle<texture_cube>& texture)
+{
+    if(texture->format() == texture_format::depth || texture->format() == texture_format::depth_stencil)
+    {
+        platform_log(core::log::level::error, "Can't attach Texture Cube with non color format to framebuffer (as color attachment)");
+        return;
+    }
+
+    bind();
+
+    GLenum attachment = detail::as_color_attachment(unit);
+    glFramebufferTexture(GL_FRAMEBUFFER, attachment, texture->gl_handle(), 0);
+    check_completed();
+
+    unbind();
+}
+
 void framebuffer::attach_depth(const handle<texture>& texture)
 {
     bind();
@@ -144,6 +162,27 @@ void framebuffer::attach_depth(const handle<renderbuffer>& buffer)
     bind();
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, buffer->gl_handle());
+    check_completed();
+
+    unbind();
+}
+
+void framebuffer::attach_depth(const handle<texture_cube>& texture)
+{
+    bind();
+
+    switch (texture->format()) {
+    case texture_format::depth:
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture->gl_handle(), 0);
+        break;
+
+    case texture_format::depth_stencil:
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, texture->gl_handle(), 0);
+        break;
+
+    default:
+        platform_log(core::log::level::error, "Can't attach Texture Cube with non depth/stencil format to framebuffer (as depth/stencil attachment)");
+    }
     check_completed();
 
     unbind();
