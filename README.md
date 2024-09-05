@@ -9,7 +9,8 @@ This repository contains proof-of-concept implementations of various rendering /
   - [x] [shadow-mapping](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/shadow_mapping)
   - [x] [cel-shading (post-process edge detection)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/cel_shading)
   - [ ] physically based rendering (+ image based lighting)
-  - [x] [deferred rendering (light volumes)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/deferred_rendering))
+  - [x] [deferred rendering (light volumes)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/deferred_rendering)
+  - [x] [reflection probes (AABB parallax correction)](https://github.com/nikolausrauch/opengl-playground/blob/main/apps/reflection_probes)
   - [ ] screen space ambient occlusion
   - [ ] screen space reflections
   - [ ] transclucent shadow map
@@ -19,18 +20,17 @@ This repository contains proof-of-concept implementations of various rendering /
 
 ## Selected Examples
 
-### Pointcloud Rendering (Geometry Shader Billboards)
-
-["1982 Porsche 911 - SiteScape 3D Scan"](https://sketchfab.com/3d-models/1982-porsche-911-sitescape-3d-scan-7e315942b6db428194314285183b5896) by [SiteScape](https://skfb.ly/6XZZM) licensed under CC BY 4.0
-![pc_example](https://github.com/nikolausrauch/opengl-playground/assets/13553309/8eaa0438-dfc5-49e7-b5cc-e1c5c4bc85ad)
+### Reflection Probes (AABB Geometry Proxy for Parallax Correction)
+["Wanderers](https://sketchfab.com/3d-models/wanderers-f9464c725e1d47e482d988d355da4a7a) by [Bastien Genbrugge](https://sketchfab.com/bastienBGR) licensed under CC BY 4.0.
+![reflection_probes](https://github.com/user-attachments/assets/b7539a17-c7c6-4f6a-91b2-77b1fa9c2735)
 
 ### Volume-Raycasting (MIP and ISO-Surface Rendering)
 ["Skull"](https://klacansky.com/open-scivis-datasets/) from volvis.org and Siemens Medical Solutions, Forchheim, Germany
 ![mipiso](https://github.com/user-attachments/assets/5428c816-09b2-4698-b9c2-06a3587c2aa6)
 
-### Shadow Mapping of Directional Light Source (PCF)
-["Small City Free Pack](https://skfb.ly/6RTGw) by [mattshield](https://sketchfab.com/mattshield) licensed under CC BY 4.0.
-![shadow_mapping](https://github.com/nikolausrauch/opengl-playground/assets/13553309/17f93f37-ed7b-4ab0-b863-6e809f31ab99)
+### Pointcloud Rendering (Geometry Shader Billboards)
+["1982 Porsche 911 - SiteScape 3D Scan"](https://sketchfab.com/3d-models/1982-porsche-911-sitescape-3d-scan-7e315942b6db428194314285183b5896) by [SiteScape](https://skfb.ly/6XZZM) licensed under CC BY 4.
+![pc_example](https://github.com/nikolausrauch/opengl-playground/assets/13553309/8eaa0438-dfc5-49e7-b5cc-e1c5c4bc85ad)
 
 
 

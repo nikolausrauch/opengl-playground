@@ -1,0 +1,13 @@
+# Blender 4.2.1 LTS MTL File: 'None'
+# www.blender.org
+
+newmtl Water
+Ns 928.595032
+Ka 1.000000 1.000000 1.000000
+Ks 0.638182 0.638182 0.638182
+Ke 0.000000 0.000000 0.000000
+Ni 1.325000
+d 0.960000
+illum 9
+map_Kd blue.png
+norm water_normal.jpg
