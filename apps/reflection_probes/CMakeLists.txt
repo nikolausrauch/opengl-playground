@@ -1,7 +1,7 @@
 add_executable( reflection_probes ${CMAKE_CURRENT_SOURCE_DIR}/reflection_probes.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader/scene.frag
+    ${CMAKE_CURRENT_SOURCE_DIR}/shader/scene.vert
     ${CMAKE_CURRENT_SOURCE_DIR}/shader/water.frag
-    ${CMAKE_CURRENT_SOURCE_DIR}/shader/water.vert
     ${CMAKE_CURRENT_SOURCE_DIR}/shader/refl_prope.geom
     ${CMAKE_CURRENT_SOURCE_DIR}/shader/refl_prope.vert
     ${CMAKE_CURRENT_SOURCE_DIR}/shader/debug_prope.frag
